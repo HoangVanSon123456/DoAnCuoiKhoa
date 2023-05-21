@@ -33,13 +33,8 @@ public class AuthenController {
     }
 
     @GetMapping("/authen/logout")
-    public ResponseEntity<?> logout(@RequestHeader("refreshToken") String refreshToken){
-        return userService.logout(refreshToken);
-    }
-
-    @GetMapping("/authen/active-account/{id}")
-    public ResponseEntity<?> activeAccount(@PathVariable("id") int id){
-        return userService.activeAccount(id);
+    public ResponseEntity<?> logout(@PathVariable(name = "id") Integer userId,@RequestHeader("refreshToken") String refreshToken){
+        return userService.logout(userId,refreshToken);
     }
 
     @GetMapping("/member/profile/{id}")

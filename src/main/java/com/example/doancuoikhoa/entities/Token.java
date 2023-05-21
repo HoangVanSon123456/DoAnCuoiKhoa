@@ -6,25 +6,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
-@Table(name = "role")
+@Table(name = "token")
 @Data
-public class Role implements Serializable {
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Token {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "role")
-    private String name;
+    @Column(name = "user_id")
+    private Integer userId;
 
-    public Role(int id) {
-        this.id = id;
-    }
+    @Column(name = "access_token")
+    private String accessToken;
 
-    public Role() {
-
-    }
+    @Column(name = "refresh_token")
+    private String refreshToken;
 }
+

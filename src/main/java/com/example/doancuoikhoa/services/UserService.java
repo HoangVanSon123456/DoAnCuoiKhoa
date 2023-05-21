@@ -1,7 +1,7 @@
 package com.example.doancuoikhoa.services;
 
 
-import com.example.doancuoikhoa.entities.Role;
+import com.example.doancuoikhoa.entities.Token;
 import com.example.doancuoikhoa.entities.User;
 import com.example.doancuoikhoa.exceptions.NotFoundException;
 import com.example.doancuoikhoa.model.CustomUserDetails;
@@ -32,31 +32,38 @@ import java.util.Objects;
 public class UserService extends BaseService implements UserDetailsService {
 
     public ResponseEntity<?> add(UserDTO userDTO) {
-        User user = User.builder().email(userDTO.getEmail())
-                .usePass(PasswordGenerator.encrytePassword(userDTO.getUsePass()))
-                .enabled(false).role(new Role(RoleEnum.MEMBER.getRoleId())).build();
+        User user = new User();
+        user.setEmail(userDTO.getEmail());
+        user.setUsePass(PasswordGenerator.encrytePassword(userDTO.getPassword()));
+        user.setEnabled(true);
+        user.setUserRole(RoleEnum.MEMBER.getRoleName());
         userRepository.save(user);
         return ResponseEntity.ok("Success");
     }
 
     public ResponseEntity<?> checkUserAuthen(UserDTO userDTO) {
         User user = userRepository.findUserByEmail(userDTO.getEmail());
-//        if (Objects.isNull(user)) {
-//            throw new NotFoundException("Email not found");
-//        }
-//        if (!user.getEnabled()){
-//            throw new NotFoundException("Account is not active. Click link in email to active account!");
-//        }
+        if (Objects.isNull(user)) {
+            throw new NotFoundException("Email not found");
+        }
+        if (!user.getEnabled()){
+            throw new NotFoundException("Account is not active. Click link in email to active account!");
+        }
         //authentication username and password
-        String accessToken = authenticationVerify(userDTO.getEmail(), userDTO.getUsePass());
-
+        String accessToken = authenticationVerify(userDTO.getEmail(), userDTO.getPassword());
         //generate refreshtoken
         String refreshToken = PasswordGenerator.stringRandomGenerator();
+
+        Token token = new Token();
+        token.setRefreshToken(refreshToken);
+        token.setAccessToken(accessToken);
+        token.setUserId(user.getId());
+        tokenRepository.save(token);
         return ResponseEntity.ok(new UserResponse(accessToken, refreshToken));
     }
 
 //    public ResponseEntity<?> genNewAccessToken(String refreshToken){
-//        TokenInfo tokenInfo = cacheManagerService.getToken(refreshToken); //thay luu vao db
+//        TokenInfo tokenInfo = tokenRepository.findTokenById(); //thay luu vao db
 //        if (Objects.isNull(tokenInfo)){
 //            throw new NotFoundException("Refresh Token Expired!");
 //        }
@@ -64,7 +71,7 @@ public class UserService extends BaseService implements UserDetailsService {
 //        return ResponseEntity.ok(new UserResponse(accessToken, refreshToken));
 //    }
 
-    public ResponseEntity<?> logout(String refreshToken){
+    public ResponseEntity<?> logout(Integer userId,String refreshToken){
 //        cacheManagerService.deleteToken(refreshToken); //xoa trong
         return ResponseEntity.ok("Logout Success!");
     }
@@ -79,15 +86,6 @@ public class UserService extends BaseService implements UserDetailsService {
         return ResponseEntity.ok(userDTO);
     }
 
-    public ResponseEntity<?> activeAccount(int id) {
-        User user = userRepository.findUserById(id);
-        if (Objects.isNull(user)) {
-            throw new NotFoundException("Email not found!");
-        }
-        user.setEnabled(true);
-        userRepository.save(user);
-        return ResponseEntity.ok("Account is actived");
-    }
 
     public String authenticationVerify(String username, String password){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
@@ -103,7 +101,7 @@ public class UserService extends BaseService implements UserDetailsService {
             throw new UsernameNotFoundException("Not found");
         }
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
+        authorities.add(new SimpleGrantedAuthority(user.getUserRole()));
         CustomUserDetails customUserDetails = new CustomUserDetails(user, authorities);
         return customUserDetails;
     }
@@ -111,7 +109,7 @@ public class UserService extends BaseService implements UserDetailsService {
     public UserDetails loadUserById(int id) {
         User user = userRepository.findUserById(id);
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
+        authorities.add(new SimpleGrantedAuthority(user.getUserRole()));
         return new CustomUserDetails(user, authorities);
     }
 }

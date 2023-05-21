@@ -13,10 +13,12 @@ import java.util.Map;
 @Component
 @Slf4j
 public class JwtTokenProvider {
-    @Value("${jwt.secret.key}")
-    private String JWT_SECRET;
+//    @Value("${jwt.secret.key}")
+//    private String JWT_SECRET;
 
-    public static final long JWT_TOKEN_VALIDITY = 3600000; //60 minutes
+    private final String JWT_SECRET = "lodaaaaaa";
+
+    public static final long JWT_TOKEN_VALIDITY = 604800000L; //60 minutes
 
     public String generateToken(CustomUserDetails userDetails) {
         Date now = new Date();

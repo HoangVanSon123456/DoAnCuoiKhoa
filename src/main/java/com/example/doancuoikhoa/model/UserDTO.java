@@ -7,7 +7,7 @@ public class UserDTO {
 
     private String email;
 
-    private String usePass;
+    private String password;
 
     private Boolean enabled;
 
