@@ -3,13 +3,10 @@ package com.example.doancuoikhoa.model;
 import lombok.Data;
 
 @Data
-public class UserDTO {
-
+public class TokenInfo {
+    private Integer userId;
     private String email;
-
-    private String usePass;
-
-    private Boolean enabled;
-
+    private String password;
+    private String accessToken;
     private String refreshToken;
 }
