@@ -54,10 +54,13 @@ public class UserService extends BaseService implements UserDetailsService {
         //generate refreshtoken
         String refreshToken = PasswordGenerator.stringRandomGenerator();
 
-        Token token = new Token();
+        Token token = tokenRepository.findByUserId(user.getId());
+        if (Objects.isNull(token)) {
+            token = new Token();
+            token.setUserId(user.getId());
+        }
         token.setRefreshToken(refreshToken);
         token.setAccessToken(accessToken);
-        token.setUserId(user.getId());
         tokenRepository.save(token);
         return ResponseEntity.ok(new UserResponse(accessToken, refreshToken));
     }
@@ -71,13 +74,24 @@ public class UserService extends BaseService implements UserDetailsService {
 //        return ResponseEntity.ok(new UserResponse(accessToken, refreshToken));
 //    }
 
-    public ResponseEntity<?> logout(Integer userId,String refreshToken){
+    public ResponseEntity<?> logout(Integer userId){
+        Token token = tokenRepository.findByUserId(userId);
+        if (token != null) {
+            tokenRepository.delete(token);
+        }
+        User user = userRepository.findUserById(userId);
+//        if(user != null) {
+//            tokenRepository.delete(refreshToken);
+//        }
 //        cacheManagerService.deleteToken(refreshToken); //xoa trong
         return ResponseEntity.ok("Logout Success!");
     }
 
     public ResponseEntity<?> getOneUser(int id) {
         User user = userRepository.getOne(id);
+        if (user.getUserRole().equalsIgnoreCase(RoleEnum.ADMIN.getRoleName())) {
+
+        }
         if (Objects.isNull(user)) {
             throw new NotFoundException("Email not found");
         }

@@ -38,21 +38,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             userDetails
                                     .getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
-            }else {
+            } else {
                 log.error("AccessToken Expire!");
             }
-        }catch (Exception ex){
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+        } catch (Exception ex) {
+            ex.printStackTrace();
             log.error("failed on set user authentication", ex);
         }
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 
     private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("A ")) {
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
         return null;

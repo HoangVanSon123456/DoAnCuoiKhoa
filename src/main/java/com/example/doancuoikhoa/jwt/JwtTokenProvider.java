@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,12 +15,20 @@ import java.util.Map;
 @Component
 @Slf4j
 public class JwtTokenProvider {
-//    @Value("${jwt.secret.key}")
-//    private String JWT_SECRET;
 
-    private final String JWT_SECRET = "lodaaaaaa";
+    @Value("${security.jwt.token.secret-key:secret-key}")
+    private String JWT_SECRET;
 
-    public static final long JWT_TOKEN_VALIDITY = 604800000L; //60 minutes
+    @PostConstruct
+    protected void init() {
+        JWT_SECRET = Base64.getEncoder().encodeToString(JWT_SECRET.getBytes());
+    }
+
+    @Value("${security.jwt.token.expire-length:3600000}")
+    private long JWT_TOKEN_VALIDITY = 3600000; // 1h
+
+
+
 
     public String generateToken(CustomUserDetails userDetails) {
         Date now = new Date();

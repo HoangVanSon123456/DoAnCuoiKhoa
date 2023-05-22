@@ -2,6 +2,7 @@ package com.example.doancuoikhoa.configs;
 
 
 import com.example.doancuoikhoa.jwt.JwtAuthenticationFilter;
+import com.example.doancuoikhoa.jwt.JwtTokenProvider;
 import com.example.doancuoikhoa.services.UserService;
 import com.example.doancuoikhoa.utils.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private JwtTokenProvider jwtTokenProvider;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -56,8 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 				.authorizeRequests()
-				.antMatchers("/v1/api/admin/**").hasAnyRole(RoleEnum.ADMIN.getRoleName())
-				.antMatchers("/v1/api/member/**").hasAnyRole(RoleEnum.ADMIN.getRoleName(), RoleEnum.MEMBER.getRoleName())
+				.antMatchers("/v1/api/admin/**").hasAuthority(RoleEnum.ADMIN.getRoleName())
+				.antMatchers("/v1/api/member/**").authenticated()
 				.antMatchers("/v1/api/authen/**").permitAll()
 				.anyRequest().authenticated();
 
