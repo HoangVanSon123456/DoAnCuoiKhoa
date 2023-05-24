@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/v1/api")
+@CrossOrigin(origins = "*", maxAge = -1)
 public class AuthenController {
 
     @Autowired
@@ -32,13 +33,12 @@ public class AuthenController {
 
     @GetMapping("/authen/refresh-token")
     public ResponseEntity<?> refreshToken(@RequestHeader("refreshToken") String refreshToken){
-        return null;
-//        return userService.genNewAccessToken(refreshToken);
+        return userService.genNewAccessToken(refreshToken);
     }
 
     @GetMapping("/authen/logout/{userId}")
-    public ResponseEntity<?> logout(@PathVariable(name = "userId") Integer userId){
-        return userService.logout(userId);
+    public ResponseEntity<?> logout(@PathVariable(name = "userId") Integer userId,@RequestHeader("refreshToken") String refreshToken){
+        return userService.logout(userId,refreshToken);
     }
 
     @GetMapping("/member/profile/{id}")
@@ -48,11 +48,6 @@ public class AuthenController {
     @GetMapping("/admin/profile/{id}")
     public ResponseEntity<?> getProfileA(@PathVariable("id") Integer id){
         return userService.getOneUser(id);
-    }
-
-    @GetMapping("/member/test")
-    public String getProfileA(){
-        return "Hello";
     }
 
 }

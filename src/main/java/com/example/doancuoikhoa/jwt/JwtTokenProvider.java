@@ -27,9 +27,6 @@ public class JwtTokenProvider {
     @Value("${security.jwt.token.expire-length:3600000}")
     private long JWT_TOKEN_VALIDITY = 3600000; // 1h
 
-
-
-
     public String generateToken(CustomUserDetails userDetails) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + JWT_TOKEN_VALIDITY);

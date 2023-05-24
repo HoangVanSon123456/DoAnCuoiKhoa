@@ -31,4 +31,32 @@ public class User {
     @Column(name = "user_role")
     private String userRole;
 
+    @Column(name = "access_token")
+    private String accessToken;
+
+    @Column(name = "refresh_token")
+    private String refreshToken;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "age")
+    private String age;
+
+    @Column(name = "useName")
+    private String useName;
+
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "phone")
+    private String phone;
+
+
 }

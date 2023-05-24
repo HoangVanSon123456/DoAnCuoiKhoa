@@ -1,11 +1,9 @@
 package com.example.doancuoikhoa.services;
 
 
-import com.example.doancuoikhoa.entities.Token;
 import com.example.doancuoikhoa.entities.User;
 import com.example.doancuoikhoa.exceptions.NotFoundException;
 import com.example.doancuoikhoa.model.CustomUserDetails;
-import com.example.doancuoikhoa.model.TokenInfo;
 import com.example.doancuoikhoa.model.UserDTO;
 import com.example.doancuoikhoa.response.UserResponse;
 import com.example.doancuoikhoa.utils.PasswordGenerator;
@@ -54,44 +52,31 @@ public class UserService extends BaseService implements UserDetailsService {
         //generate refreshtoken
         String refreshToken = PasswordGenerator.stringRandomGenerator();
 
-        Token token = tokenRepository.findByUserId(user.getId());
-        if (Objects.isNull(token)) {
-            token = new Token();
-            token.setUserId(user.getId());
-        }
-        token.setRefreshToken(refreshToken);
-        token.setAccessToken(accessToken);
-        tokenRepository.save(token);
+        user.setRefreshToken(refreshToken);
+        user.setAccessToken(accessToken);
+        userRepository.save(user);
         return ResponseEntity.ok(new UserResponse(accessToken, refreshToken));
     }
 
-//    public ResponseEntity<?> genNewAccessToken(String refreshToken){
-//        TokenInfo tokenInfo = tokenRepository.findTokenById(); //thay luu vao db
-//        if (Objects.isNull(tokenInfo)){
-//            throw new NotFoundException("Refresh Token Expired!");
-//        }
-//        String accessToken = authenticationVerify(tokenInfo.getEmail(), tokenInfo.getPassword());
-//        return ResponseEntity.ok(new UserResponse(accessToken, refreshToken));
-//    }
-
-    public ResponseEntity<?> logout(Integer userId){
-        Token token = tokenRepository.findByUserId(userId);
-        if (token != null) {
-            tokenRepository.delete(token);
+    public ResponseEntity<?> genNewAccessToken(String refreshToken){
+        User tokenInfo = userRepository.findUserByRefreshToken(refreshToken);
+        if (Objects.isNull(tokenInfo)){
+            throw new NotFoundException("Refresh Token Expired!");
         }
+        String accessToken = authenticationVerify(tokenInfo.getEmail(), tokenInfo.getUsePass());
+        return ResponseEntity.ok(new UserResponse(accessToken, refreshToken));
+    }
+
+    public ResponseEntity<?> logout(Integer userId, String refreshToken){
         User user = userRepository.findUserById(userId);
-//        if(user != null) {
-//            tokenRepository.delete(refreshToken);
-//        }
-//        cacheManagerService.deleteToken(refreshToken); //xoa trong
+        if(user != null) {
+            userRepository.deleteRefreshToken(refreshToken);
+        }
         return ResponseEntity.ok("Logout Success!");
     }
 
     public ResponseEntity<?> getOneUser(int id) {
         User user = userRepository.getOne(id);
-        if (user.getUserRole().equalsIgnoreCase(RoleEnum.ADMIN.getRoleName())) {
-
-        }
         if (Objects.isNull(user)) {
             throw new NotFoundException("Email not found");
         }
@@ -126,4 +111,83 @@ public class UserService extends BaseService implements UserDetailsService {
         authorities.add(new SimpleGrantedAuthority(user.getUserRole()));
         return new CustomUserDetails(user, authorities);
     }
+
+    public void addUser(UserDTO userDTO) {
+        User user = new User();
+        user.setName(userDTO.getName());
+        user.setUseName(userDTO.getUseName());
+        user.setAddress(userDTO.getAddress());
+        user.setAge(userDTO.getAge());
+        user.setGender(userDTO.getGender());
+        user.setEmail(userDTO.getEmail());
+        user.setUsePass(PasswordGenerator.encrytePassword(userDTO.getPassword()));
+        user.setPhone(userDTO.getPhone());
+        user.setEnabled(true);
+        user.setUserRole(RoleEnum.MEMBER.getRoleName());
+        userRepository.save(user);
+    }
+
+    public void updateUser(UserDTO userDTO) throws Exception {
+        User user = userRepository.findUserById(userDTO.getId());
+        if(user != null) {
+            user.setId(userDTO.getId());
+            user.setName(userDTO.getName());
+            user.setUseName(userDTO.getUseName());
+            user.setAddress(userDTO.getAddress());
+            user.setAge(userDTO.getAge());
+            user.setGender(userDTO.getGender());
+            user.setEmail(userDTO.getEmail());
+            user.setUsePass(userDTO.getPassword());
+            user.setPhone(userDTO.getPhone());
+        }
+        userRepository.save(user);
+    }
+
+
+    public void deleteUser(Integer id) throws Exception {
+        User user = userRepository.findUserById(id);
+        if(user != null) {
+            userRepository.delete(user);
+        } else {
+            throw new Exception("Không tìm thấy người dùng");
+        }
+    }
+
+
+    public UserDTO getUserById(Integer id) {
+        User user = userRepository.findUserById(id);
+        if(user != null) {
+            return convertToDTO(user);
+        }
+        return null;
+    }
+    private UserDTO convertToDTO(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setName(user.getName());
+        userDTO.setUseName(user.getUseName());
+        userDTO.setAddress(user.getAddress());
+        userDTO.setAge(user.getAge());
+        userDTO.setGender(user.getGender());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setPassword(user.getUsePass());
+        userDTO.setPhone(user.getPhone());
+//        userDTO.setRole(user.getRole());
+
+        return userDTO;
+    }
+
+
+    public List<UserDTO> getListUser() {
+        List<User> users = userRepository.findAllBy();
+        List<UserDTO> userDTOs = new ArrayList<>();
+        users.forEach(user -> {
+            userDTOs.add(convertToDTO(user));
+        });
+
+        return userDTOs;
+    }
+
+
+
 }
