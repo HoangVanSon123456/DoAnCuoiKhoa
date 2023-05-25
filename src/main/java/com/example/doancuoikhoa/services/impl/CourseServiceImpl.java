@@ -20,9 +20,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void addCourse(CourseDTO courseDTO) {
         Course course = new Course();
-        course.setId(courseDTO.getId());
         course.setName(courseDTO.getName());
-
+        course.setCode(courseDTO.getCode());
+        course.setTheoryClass(courseDTO.getTheoryClass());
+        course.setPracticalClass(courseDTO.getPracticalClass());
+        course.setCreditName(courseDTO.getCreditName());
         courseRepository.save(course);
     }
 
@@ -32,6 +34,10 @@ public class CourseServiceImpl implements CourseService {
         if(course != null) {
             course.setId(courseDTO.getId());
             course.setName(courseDTO.getName());
+            course.setCode(courseDTO.getCode());
+            course.setTheoryClass(courseDTO.getTheoryClass());
+            course.setPracticalClass(courseDTO.getPracticalClass());
+            course.setCreditName(courseDTO.getCreditName());
         }
         courseRepository.save(course);
     }
@@ -59,6 +65,10 @@ public class CourseServiceImpl implements CourseService {
         CourseDTO courseDTO = new CourseDTO();
         courseDTO.setId(course.getId());
         courseDTO.setName(course.getName());
+        courseDTO.setCode(course.getCode());
+        courseDTO.setTheoryClass(course.getTheoryClass());
+        courseDTO.setPracticalClass(course.getPracticalClass());
+        courseDTO.setCreditName(course.getCreditName());
         return courseDTO;
     }
 

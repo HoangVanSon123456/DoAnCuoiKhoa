@@ -17,20 +17,11 @@ public class EducationProgram implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "course_code")
-    private String courseCode;
+    @Column(name = "course_id")
+    private String courseId;
 
     @Column(name = "course_name")
     private String courseName;
-
-    @Column(name = "credit_name")
-    private int creditName;
-
-    @Column(name = "theory_class")
-    private int theoryClass;
-
-    @Column(name = "practical_class")
-    private int practicalClass;
 
     @Column(name = "semester")
     private int semester;

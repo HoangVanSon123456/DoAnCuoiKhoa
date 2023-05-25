@@ -15,7 +15,19 @@ public class Course implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "code")
+    private String code;
+
     @Column(name = "name")
     private String name;
+
+    @Column(name = "credit_name")
+    private int creditName;
+
+    @Column(name = "theory_class")
+    private int theoryClass;
+
+    @Column(name = "practical_class")
+    private int practicalClass;
 
 }

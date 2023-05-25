@@ -1,6 +1,8 @@
 package com.example.doancuoikhoa.services.impl;
 
+import com.example.doancuoikhoa.entities.Course;
 import com.example.doancuoikhoa.entities.EducationProgram;
+import com.example.doancuoikhoa.model.CourseDTO;
 import com.example.doancuoikhoa.model.EducationProgramDTO;
 import com.example.doancuoikhoa.repositories.EducationProgramRepository;
 import com.example.doancuoikhoa.services.EducationProgramService;
@@ -19,29 +21,25 @@ public class EducationProgramServiceImpl implements EducationProgramService {
     private EducationProgramRepository educationProgramRepository;
 
     @Override
-    public void addEducationProgramService(EducationProgramDTO EducationProgramDTO) {
+    public void addEducationProgramService(EducationProgramDTO educationProgramDTO) {
         EducationProgram educationProgram =  new EducationProgram();
-        educationProgram.setSemester(EducationProgramDTO.getSemester());
-        educationProgram.setCourseCode(EducationProgramDTO.getCourseCode());
-        educationProgram.setCourseName(EducationProgramDTO.getCourseName());
-        educationProgram.setCreditName(EducationProgramDTO.getCreditName());
-        educationProgram.setPracticalClass(EducationProgramDTO.getPracticalClass());
-        educationProgram.setTheoryClass(EducationProgramDTO.getTheoryClass());
+        educationProgram.setSemester(educationProgramDTO.getSemester());
+        Course course = new Course();
+        educationProgram.setCourseId(course.getCode());
+        educationProgram.setCourseName(course.getName());
 
         educationProgramRepository.save(educationProgram);
     }
 
     @Override
-    public void updateEducationProgram(EducationProgramDTO EducationProgramDTO) throws Exception {
-        EducationProgram educationProgram = educationProgramRepository.findEducationProgramById(EducationProgramDTO.getId());
+    public void updateEducationProgram(EducationProgramDTO educationProgramDTO) throws Exception {
+        EducationProgram educationProgram = educationProgramRepository.findEducationProgramById(educationProgramDTO.getId());
         if(educationProgram != null) {
-            educationProgram.setId(EducationProgramDTO.getId());
-            educationProgram.setSemester(EducationProgramDTO.getSemester());
-            educationProgram.setCourseCode(EducationProgramDTO.getCourseCode());
-            educationProgram.setCourseName(EducationProgramDTO.getCourseName());
-            educationProgram.setCreditName(EducationProgramDTO.getCreditName());
-            educationProgram.setPracticalClass(EducationProgramDTO.getPracticalClass());
-            educationProgram.setTheoryClass(EducationProgramDTO.getTheoryClass());
+            educationProgram.setId(educationProgramDTO.getId());
+            educationProgram.setSemester(educationProgramDTO.getSemester());
+            Course course = new Course();
+            educationProgram.setCourseId(course.getCode());
+            educationProgram.setCourseName(course.getName());
         }
         educationProgramRepository.save(educationProgram);
     }
@@ -77,13 +75,11 @@ public class EducationProgramServiceImpl implements EducationProgramService {
 
     private EducationProgramDTO converToDTO(EducationProgram educationProgram) {
         EducationProgramDTO educationProgramDTO = new EducationProgramDTO();
-        educationProgramDTO.setId(educationProgram.getId());
-        educationProgramDTO.setSemester(educationProgram.getSemester());
-        educationProgramDTO.setCourseCode(educationProgram.getCourseCode());
-        educationProgramDTO.setCourseName(educationProgram.getCourseName());
-        educationProgramDTO.setCreditName(educationProgram.getCreditName());
-        educationProgramDTO.setPracticalClass(educationProgram.getPracticalClass());
-        educationProgramDTO.setTheoryClass(educationProgram.getTheoryClass());
+        educationProgramDTO.setId(educationProgramDTO.getId());
+        educationProgramDTO.setSemester(educationProgramDTO.getSemester());
+        CourseDTO courseDTO = new CourseDTO();
+        educationProgramDTO.setCourseId(courseDTO.getCode());
+        educationProgramDTO.setCourseName(courseDTO.getName());
         return educationProgramDTO;
     }
 }
