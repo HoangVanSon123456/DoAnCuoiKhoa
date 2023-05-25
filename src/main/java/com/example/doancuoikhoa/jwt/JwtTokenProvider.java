@@ -47,6 +47,19 @@ public class JwtTokenProvider {
         return Integer.parseInt(claims.getSubject());
     }
 
+    public Claims getAllClaimsFromToken(String token) {
+        Claims claims;
+        try {
+            claims = Jwts.parser()
+                    .setSigningKey(JWT_SECRET)
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e) {
+            claims = null;
+        }
+        return claims;
+    }
+
     public boolean validateToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(authToken);

@@ -19,6 +19,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findUserByRefreshToken(String refreshToken);
 
-    @Query("delete from User b where b.refreshToken=:refreshToken")
-    void deleteRefreshToken(String refreshToken);
+    @Query(value = "delete from User b where b.refreshToken=:refreshToken")
+    void deleteRefreshTokenBy(String refreshToken);
 }

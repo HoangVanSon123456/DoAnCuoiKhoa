@@ -8,6 +8,7 @@ import com.example.doancuoikhoa.model.UserDTO;
 import com.example.doancuoikhoa.response.UserResponse;
 import com.example.doancuoikhoa.utils.PasswordGenerator;
 import com.example.doancuoikhoa.utils.RoleEnum;
+import io.jsonwebtoken.Claims;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -70,10 +71,31 @@ public class UserService extends BaseService implements UserDetailsService {
     public ResponseEntity<?> logout(Integer userId, String refreshToken){
         User user = userRepository.findUserById(userId);
         if(user != null) {
-            userRepository.deleteRefreshToken(refreshToken);
+            user.setRefreshToken("");
+            userRepository.save(user);
         }
         return ResponseEntity.ok("Logout Success!");
     }
+
+    public Integer getUserTonken(String token) {
+        return jwtTokenProvider.getUserIdFromJWT(token);
+    }
+
+    public ResponseEntity<?> getUser(int id, String token) {
+        User user = userRepository.getOne(id);
+        if (Objects.isNull(user)) {
+            throw new NotFoundException("Email not found");
+        }
+        UserDTO userDTO = new UserDTO();
+        if (user.getId() == getUserTonken((token))) {
+            userDTO.setEmail(user.getEmail());
+        }else {
+            throw new NotFoundException("Email not found");
+        }
+        return ResponseEntity.ok(userDTO);
+    }
+
+
 
     public ResponseEntity<?> getOneUser(int id) {
         User user = userRepository.getOne(id);
