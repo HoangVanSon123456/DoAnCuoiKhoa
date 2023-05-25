@@ -22,9 +22,6 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "usePass")
-    private String usePass;
-
     @Column(name = "enabled")
     private Boolean enabled;
 

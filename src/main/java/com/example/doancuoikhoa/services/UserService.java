@@ -32,7 +32,7 @@ public class UserService extends BaseService implements UserDetailsService {
     public ResponseEntity<?> add(UserDTO userDTO) {
         User user = new User();
         user.setEmail(userDTO.getEmail());
-        user.setUsePass(PasswordGenerator.encrytePassword(userDTO.getPassword()));
+        user.setPassword(PasswordGenerator.encrytePassword(userDTO.getPassword()));
         user.setEnabled(true);
         user.setUserRole(RoleEnum.MEMBER.getRoleName());
         userRepository.save(user);
@@ -63,7 +63,7 @@ public class UserService extends BaseService implements UserDetailsService {
         if (Objects.isNull(tokenInfo)){
             throw new NotFoundException("Refresh Token Expired!");
         }
-        String accessToken = authenticationVerify(tokenInfo.getEmail(), tokenInfo.getUsePass());
+        String accessToken = authenticationVerify(tokenInfo.getEmail(), tokenInfo.getPassword());
         return ResponseEntity.ok(new UserResponse(accessToken, refreshToken));
     }
 
@@ -120,7 +120,7 @@ public class UserService extends BaseService implements UserDetailsService {
         user.setAge(userDTO.getAge());
         user.setGender(userDTO.getGender());
         user.setEmail(userDTO.getEmail());
-        user.setUsePass(PasswordGenerator.encrytePassword(userDTO.getPassword()));
+        user.setPassword(PasswordGenerator.encrytePassword(userDTO.getPassword()));
         user.setPhone(userDTO.getPhone());
         user.setEnabled(true);
         user.setUserRole(RoleEnum.MEMBER.getRoleName());
@@ -137,7 +137,7 @@ public class UserService extends BaseService implements UserDetailsService {
             user.setAge(userDTO.getAge());
             user.setGender(userDTO.getGender());
             user.setEmail(userDTO.getEmail());
-            user.setUsePass(userDTO.getPassword());
+            user.setPassword(userDTO.getPassword());
             user.setPhone(userDTO.getPhone());
         }
         userRepository.save(user);
@@ -170,9 +170,8 @@ public class UserService extends BaseService implements UserDetailsService {
         userDTO.setAge(user.getAge());
         userDTO.setGender(user.getGender());
         userDTO.setEmail(user.getEmail());
-        userDTO.setPassword(user.getUsePass());
+        userDTO.setPassword(user.getPassword());
         userDTO.setPhone(user.getPhone());
-//        userDTO.setRole(user.getRole());
 
         return userDTO;
     }
