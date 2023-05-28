@@ -6,6 +6,8 @@ import com.example.doancuoikhoa.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*", maxAge = -1)
 @RestController
 @RequestMapping("/v1/api")
@@ -27,8 +29,8 @@ public class CourseAPIController {
     }
 
     @GetMapping("/admin/edu-course/{eduId}")
-    private CourseDTO getCourseByEdu(@PathVariable(name = "eduId") Integer eduId) {
-        return courseService.getCourseById(eduId);
+    private List<CourseDTO> getCourseByEdu(@PathVariable(name = "eduId") Integer eduId) {
+        return courseService.getCourseByEdu(eduId);
     }
 
     @DeleteMapping(value = "/admin/course/delete/{id}")
