@@ -4,6 +4,7 @@ import com.example.doancuoikhoa.entities.Course;
 import com.example.doancuoikhoa.entities.EducationProgram;
 import com.example.doancuoikhoa.model.CourseDTO;
 import com.example.doancuoikhoa.model.EducationProgramDTO;
+import com.example.doancuoikhoa.repositories.CourseRepository;
 import com.example.doancuoikhoa.repositories.EducationProgramRepository;
 import com.example.doancuoikhoa.services.EducationProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +21,18 @@ public class EducationProgramServiceImpl implements EducationProgramService {
     @Autowired
     private EducationProgramRepository educationProgramRepository;
 
+    @Autowired
+    private CourseRepository courseRepository;
+
     @Override
     public void addEducationProgramService(EducationProgramDTO educationProgramDTO) {
         EducationProgram educationProgram =  new EducationProgram();
         educationProgram.setSemester(educationProgramDTO.getSemester());
-        Course course = new Course();
-        educationProgram.setCourseId(course.getCode());
-        educationProgram.setCourseName(course.getName());
+        educationProgram.setName(educationProgramDTO.getName());
 
         educationProgramRepository.save(educationProgram);
     }
+
 
     @Override
     public void updateEducationProgram(EducationProgramDTO educationProgramDTO) throws Exception {
@@ -37,9 +40,7 @@ public class EducationProgramServiceImpl implements EducationProgramService {
         if(educationProgram != null) {
             educationProgram.setId(educationProgramDTO.getId());
             educationProgram.setSemester(educationProgramDTO.getSemester());
-            Course course = new Course();
-            educationProgram.setCourseId(course.getCode());
-            educationProgram.setCourseName(course.getName());
+            educationProgram.setName(educationProgramDTO.getName());
         }
         educationProgramRepository.save(educationProgram);
     }
@@ -75,11 +76,9 @@ public class EducationProgramServiceImpl implements EducationProgramService {
 
     private EducationProgramDTO converToDTO(EducationProgram educationProgram) {
         EducationProgramDTO educationProgramDTO = new EducationProgramDTO();
-        educationProgramDTO.setId(educationProgramDTO.getId());
-        educationProgramDTO.setSemester(educationProgramDTO.getSemester());
-        CourseDTO courseDTO = new CourseDTO();
-        educationProgramDTO.setCourseId(courseDTO.getCode());
-        educationProgramDTO.setCourseName(courseDTO.getName());
+        educationProgramDTO.setId(educationProgram.getId());
+        educationProgramDTO.setSemester(educationProgram.getSemester());
+        educationProgramDTO.setName(educationProgram.getName());
         return educationProgramDTO;
     }
 }

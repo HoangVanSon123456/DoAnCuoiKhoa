@@ -14,6 +14,9 @@ public interface CourseService {
 
     CourseDTO getCourseById(Integer id);
 
+    List<CourseDTO> getCourseByEdu(Integer eduId);
+
+
 
     List<CourseDTO> getListCourse();
 }

@@ -26,6 +26,11 @@ public class CourseAPIController {
         return courseService.getCourseById(id);
     }
 
+    @GetMapping("/admin/edu-course/{eduId}")
+    private CourseDTO getCourseByEdu(@PathVariable(name = "eduId") Integer eduId) {
+        return courseService.getCourseById(eduId);
+    }
+
     @DeleteMapping(value = "/admin/course/delete/{id}")
     private void deleteCourse(@PathVariable(name = "id") Integer id) throws Exception {
         courseService.deleteCourse(id);
