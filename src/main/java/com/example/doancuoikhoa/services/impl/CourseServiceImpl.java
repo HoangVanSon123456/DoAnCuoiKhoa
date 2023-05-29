@@ -87,10 +87,14 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void addEduCourse(EduProCourseDTO eduProCourseDTO) {
-        EduProCourse eduProCourse = new EduProCourse();
-        eduProCourse.setCourseId(eduProCourseDTO.getCourseId());
-        eduProCourse.setEducationProgramId(eduProCourseDTO.getEduId());
-        eduProCourseRepository.save(eduProCourse);
+        List<EduProCourse> saveEduProCourse = new ArrayList<>();
+        for (Integer courseId : eduProCourseDTO.getCourseIds()) {
+            EduProCourse eduProCourse = new EduProCourse();
+            eduProCourse.setCourseId(courseId);
+            eduProCourse.setEducationProgramId(eduProCourseDTO.getEduId());
+            saveEduProCourse.add(eduProCourse);
+        }
+        eduProCourseRepository.saveAll(saveEduProCourse);
     }
 
     private CourseDTO converToDTO(Course course) {
