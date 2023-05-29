@@ -1,6 +1,7 @@
 package com.example.doancuoikhoa.controllers;
 
 import com.example.doancuoikhoa.model.CourseDTO;
+import com.example.doancuoikhoa.model.EduProCourseDTO;
 import com.example.doancuoikhoa.model.ResponseDTO;
 import com.example.doancuoikhoa.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,12 @@ public class CourseAPIController {
     private CourseDTO addCourse(@RequestBody CourseDTO courseDTO) {
         courseService.addCourse(courseDTO);
         return courseDTO;
+    }
+
+    @PostMapping("/admin/edu-course/add")
+    private EduProCourseDTO addCourse(@RequestBody EduProCourseDTO eduProCourseDTO) {
+        courseService.addEduCourse(eduProCourseDTO);
+        return eduProCourseDTO;
     }
 
     @PutMapping(value = "/admin/course/update/{id}")

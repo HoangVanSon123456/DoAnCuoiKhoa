@@ -15,6 +15,7 @@ public class UserDTO {
     private String gender;
     private String phone;
     private String userRole;
+    private String userPosition;
     private String refreshToken;
     private String accessToken;
 }

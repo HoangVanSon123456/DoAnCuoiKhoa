@@ -7,6 +7,7 @@ import com.example.doancuoikhoa.model.CustomUserDetails;
 import com.example.doancuoikhoa.model.UserDTO;
 import com.example.doancuoikhoa.response.UserResponse;
 import com.example.doancuoikhoa.utils.PasswordGenerator;
+import com.example.doancuoikhoa.utils.PositionEnum;
 import com.example.doancuoikhoa.utils.RoleEnum;
 import io.jsonwebtoken.Claims;
 import lombok.extern.log4j.Log4j2;
@@ -36,6 +37,7 @@ public class UserService extends BaseService implements UserDetailsService {
         user.setPassword(PasswordGenerator.encrytePassword(userDTO.getPassword()));
         user.setEnabled(true);
         user.setUserRole(RoleEnum.MEMBER.getRoleName());
+        user.setUserPosition(PositionEnum.STUDENT.getPositionName());
         userRepository.save(user);
         return ResponseEntity.ok("Success");
     }
@@ -146,6 +148,7 @@ public class UserService extends BaseService implements UserDetailsService {
         user.setPhone(userDTO.getPhone());
         user.setEnabled(true);
         user.setUserRole(RoleEnum.MEMBER.getRoleName());
+        user.setUserPosition(PositionEnum.STUDENT.getPositionName());
         userRepository.save(user);
     }
 
@@ -205,7 +208,24 @@ public class UserService extends BaseService implements UserDetailsService {
         users.forEach(user -> {
             userDTOs.add(convertToDTO(user));
         });
+        return userDTOs;
+    }
 
+    public List<UserDTO> getListUserTeacher() {
+        List<User> users = userRepository.findAllByPositionTeacher(PositionEnum.TEACHER.getPositionName());
+        List<UserDTO> userDTOs = new ArrayList<>();
+        users.forEach(user -> {
+            userDTOs.add(convertToDTO(user));
+        });
+        return userDTOs;
+    }
+
+    public List<UserDTO> getListUserStudent() {
+        List<User> users = userRepository.findAllByPositionStruden(PositionEnum.STUDENT.getPositionName());
+        List<UserDTO> userDTOs = new ArrayList<>();
+        users.forEach(user -> {
+            userDTOs.add(convertToDTO(user));
+        });
         return userDTOs;
     }
 

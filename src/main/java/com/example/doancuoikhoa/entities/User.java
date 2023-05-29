@@ -28,6 +28,10 @@ public class User {
     @Column(name = "user_role")
     private String userRole;
 
+    @Column(name = "user_position")
+    private String userPosition;
+
+
     @Column(name = "access_token")
     private String accessToken;
 

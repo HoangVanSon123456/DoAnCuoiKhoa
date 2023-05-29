@@ -2,7 +2,6 @@ package com.example.doancuoikhoa.services.impl;
 
 import com.example.doancuoikhoa.entities.Course;
 import com.example.doancuoikhoa.entities.EduProCourse;
-import com.example.doancuoikhoa.entities.EducationProgram;
 import com.example.doancuoikhoa.model.CourseDTO;
 import com.example.doancuoikhoa.model.EduProCourseDTO;
 import com.example.doancuoikhoa.repositories.CourseRepository;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -85,6 +83,14 @@ public class CourseServiceImpl implements CourseService {
             courseDTOS.add(converToDTO(course));
         });
         return courseDTOS;
+    }
+
+    @Override
+    public void addEduCourse(EduProCourseDTO eduProCourseDTO) {
+        EduProCourse eduProCourse = new EduProCourse();
+        eduProCourse.setCourseId(eduProCourseDTO.getCourseId());
+        eduProCourse.setEducationProgramId(eduProCourseDTO.getEduId());
+        eduProCourseRepository.save(eduProCourse);
     }
 
     private CourseDTO converToDTO(Course course) {

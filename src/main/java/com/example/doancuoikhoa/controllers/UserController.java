@@ -27,6 +27,16 @@ public class UserController {
         return userService.getListUser();
     }
 
+    @GetMapping("/admin/teacher")
+    private List<UserDTO> getAllTeacher() {
+        return userService.getListUserTeacher();
+    }
+
+    @GetMapping("/admin/student")
+    private List<UserDTO> getAllStudent() {
+        return userService.getListUserStudent();
+    }
+
     @DeleteMapping(value = "/admin/user/delete/{id}")
     public void deleteUser(@PathVariable(name = "id") Integer id) throws Exception {
         userService.deleteUser(id);

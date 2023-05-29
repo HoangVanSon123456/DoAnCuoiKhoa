@@ -1,6 +1,7 @@
 package com.example.doancuoikhoa.services;
 
 import com.example.doancuoikhoa.model.CourseDTO;
+import com.example.doancuoikhoa.model.EduProCourseDTO;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface CourseService {
 
     List<CourseDTO> getCourseByEdu(Integer eduId);
 
-
+    void addEduCourse(EduProCourseDTO eduProCourseDTO);
 
     List<CourseDTO> getListCourse();
 }

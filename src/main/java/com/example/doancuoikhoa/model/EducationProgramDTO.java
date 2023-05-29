@@ -10,5 +10,4 @@ public class EducationProgramDTO {
     private Integer id;
     private String name;
     private Integer semester;
-    private List<CourseDTO> courseDTOS;
 }
