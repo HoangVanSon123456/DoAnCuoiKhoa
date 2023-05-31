@@ -20,4 +20,6 @@ public interface CourseService {
     void addEduCourse(EduProCourseDTO eduProCourseDTO);
 
     List<CourseDTO> getListCourse();
+
+    List<CourseDTO> search(String keyword);
 }

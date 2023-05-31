@@ -55,4 +55,9 @@ public class CourseAPIController {
     public void updateUser(@PathVariable(name = "id") Long id,@RequestBody CourseDTO courseDTO) throws Exception {
         courseService.updateCourse(courseDTO);
     }
+
+    @GetMapping(value = "/admin/course/search/{keyword}")
+    public  List<CourseDTO> search(@PathVariable(name = "keyword") String keyword) {
+        return courseService.search(keyword);
+    }
 }

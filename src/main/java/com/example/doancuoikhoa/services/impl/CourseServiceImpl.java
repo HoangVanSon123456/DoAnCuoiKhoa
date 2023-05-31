@@ -117,4 +117,14 @@ public class CourseServiceImpl implements CourseService {
         });
         return courseDTOS;
     }
+
+    @Override
+    public List<CourseDTO> search(String keyword) {
+        List<Course> courses = courseRepository.search(keyword);
+        List<CourseDTO> courseDTOS = new ArrayList<>();
+        courses.forEach(course -> {
+            courseDTOS.add(converToDTO(course));
+        });
+        return courseDTOS;
+    }
 }
