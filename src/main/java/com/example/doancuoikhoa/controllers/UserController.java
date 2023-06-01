@@ -1,5 +1,6 @@
 package com.example.doancuoikhoa.controllers;
 
+import com.example.doancuoikhoa.model.CourseDTO;
 import com.example.doancuoikhoa.model.UserDTO;
 import com.example.doancuoikhoa.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,11 @@ public class UserController {
     @GetMapping(value = "/member/user/{id}")
     public UserDTO getUser(@PathVariable(name = "id") Integer id) {
         return userService.getUserById(id);
+    }
+
+    @GetMapping(value = "/admin/user/search/{keyword}")
+    public  List<UserDTO> search(@PathVariable(name = "keyword") String keyword) {
+        return userService.searchUser(keyword);
     }
 
 }

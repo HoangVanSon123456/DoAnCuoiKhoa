@@ -211,6 +211,15 @@ public class UserService extends BaseService implements UserDetailsService {
         return userDTOs;
     }
 
+    public List<UserDTO> searchUser(String keyword) {
+        List<User> users = userRepository.search(keyword);
+        List<UserDTO> userDTOs = new ArrayList<>();
+        users.forEach(user -> {
+            userDTOs.add(convertToDTO(user));
+        });
+        return userDTOs;
+    }
+
     public List<UserDTO> getListUserTeacher() {
         List<User> users = userRepository.findAllByPositionTeacher(PositionEnum.TEACHER.getPositionName());
         List<UserDTO> userDTOs = new ArrayList<>();
