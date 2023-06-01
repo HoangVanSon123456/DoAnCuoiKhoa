@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface NotificationService {
 
-    void addNotification(NotificationDTO notificationDTO);
+    void addNotification(NotificationDTO notificationDTO, String token);
 
     void updateNotification(NotificationDTO notificationDTO);
 

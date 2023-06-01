@@ -1,6 +1,7 @@
 package com.example.doancuoikhoa.controllers;
 
 
+import com.example.doancuoikhoa.entities.User;
 import com.example.doancuoikhoa.jwt.JwtTokenProvider;
 import com.example.doancuoikhoa.model.UserDTO;
 import com.example.doancuoikhoa.services.UserService;
@@ -43,10 +44,10 @@ public class AuthenController {
         return userService.logout(userId, refreshToken);
     }
 
-    @GetMapping("/member/profile/{id}")
-    public ResponseEntity<?> getProfile(@PathVariable("id") Integer id) {
-        return userService.getOneUser(id);
-    }
+//    @GetMapping("/member/profile/{id}")
+//    public ResponseEntity<?> getProfile(@PathVariable("id") Integer id) {
+//        return userService.getOneUser(id);
+//    }
 
     @GetMapping("/admin/profile/{id}")
     public ResponseEntity<?> getProfileA(@PathVariable("id") Integer id) {
@@ -55,11 +56,11 @@ public class AuthenController {
 
     @GetMapping("/authen/getToken")
     public Integer getUserToken(@RequestHeader("token") String token) {
-        return userService.getUserTonken(token);
+        return userService.getUserToken(token);
     }
 
     @GetMapping("/authen/getUser/{id}")
-    public ResponseEntity<?> getProfileA(@PathVariable("id") Integer id, @RequestHeader("token") String token) {
+    public UserDTO getProfileA(@PathVariable("id") Integer id, @RequestHeader("token") String token) {
         return userService.getUser(id, token);
     }
 

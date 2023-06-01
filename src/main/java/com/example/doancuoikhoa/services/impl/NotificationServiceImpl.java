@@ -3,10 +3,12 @@ package com.example.doancuoikhoa.services.impl;
 
 import com.example.doancuoikhoa.entities.Notification;
 import com.example.doancuoikhoa.entities.User;
+import com.example.doancuoikhoa.jwt.JwtTokenProvider;
 import com.example.doancuoikhoa.model.NotificationDTO;
 import com.example.doancuoikhoa.repositories.NotificationRepository;
 import com.example.doancuoikhoa.repositories.UserRepository;
 import com.example.doancuoikhoa.services.NotificationService;
+import com.example.doancuoikhoa.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,18 +22,28 @@ public class NotificationServiceImpl implements NotificationService {
     
     @Autowired
     private NotificationRepository notificationRepository;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
     private UserRepository userRepository;
-    
-    @Override
-    public void addNotification(NotificationDTO notificationDTO) {
+
+
+    public void addNotification(NotificationDTO notificationDTO , String token) {
         Notification notification = new Notification();
         notification.setTitle(notificationDTO.getTitle());
         notification.setContent(notificationDTO.getContent());
         notification.setFiles(notificationDTO.getFiles());
-        User user = userRepository.findUserById(notificationDTO.getId());
+        int userId = userService.getUserToken(token);
+        User user = userRepository.findUserById(userId);
         notification.setUser(user);
         notificationRepository.save(notification);
     }
+
 
     @Override
     public void updateNotification(NotificationDTO notificationDTO) {
@@ -81,7 +93,7 @@ public class NotificationServiceImpl implements NotificationService {
         notificationDTO.setFiles(notifications.getFiles());
         if (notifications.getUser() != null) {
             notificationDTO.setUserId(notifications.getUser().getId());
-            notificationDTO.setUserNotificationName(notifications.getUser().getName());
+            notificationDTO.setUserName(notifications.getUser().getName());
         }
         return notificationDTO;
     }

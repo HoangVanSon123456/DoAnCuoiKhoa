@@ -32,8 +32,8 @@ public class NotificationAPIController {
     }
 
     @PostMapping(value = "/admin/notification/add")
-    private NotificationDTO addNotification(@RequestBody NotificationDTO notificationDTO) {
-        notificationService.addNotification(notificationDTO);
+    private NotificationDTO addNotification(@RequestBody NotificationDTO notificationDTO, @RequestHeader("token") String token) {
+        notificationService.addNotification(notificationDTO, token);
         return notificationDTO;
     }
 

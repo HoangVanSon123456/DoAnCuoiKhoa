@@ -9,6 +9,6 @@ public class NotificationDTO {
     private String content;
     private String files;
     private Integer userId;
-    private String userNotificationName;
+    private String userName;
 
 }

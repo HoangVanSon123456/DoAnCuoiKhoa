@@ -1,10 +1,8 @@
 package com.example.doancuoikhoa.repositories;
 
-import com.example.doancuoikhoa.entities.Course;
 import com.example.doancuoikhoa.entities.User;
-import io.lettuce.core.dynamic.annotation.Param;
+import com.example.doancuoikhoa.model.UserDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -28,4 +26,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query(value = "SELECT u FROM User u WHERE CONCAT(u.name, ' ', u.id, ' ') LIKE %?1%")
     List<User> search(String keyword);
+
 }
