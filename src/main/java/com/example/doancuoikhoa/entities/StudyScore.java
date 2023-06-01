@@ -11,14 +11,6 @@ public class StudyScore {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "course_code")
-    private String courseCode;
-
-    @Column(name = "course_name")
-    private String courseName;
-
-    @Column(name = "credit_name")
-    private Integer creditName;
 
     @Column(name = "study_times")
     private String studyTimes;
@@ -38,5 +30,7 @@ public class StudyScore {
     @Column(name = "letter_point")
     private Integer letterPoint;
 
-
+    @OneToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 }

@@ -109,7 +109,6 @@ public class UserService extends BaseService implements UserDetailsService {
         return ResponseEntity.ok(userDTO);
     }
 
-
     public String authenticationVerify(String username, String password){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -162,7 +161,6 @@ public class UserService extends BaseService implements UserDetailsService {
             user.setAge(userDTO.getAge());
             user.setGender(userDTO.getGender());
             user.setEmail(userDTO.getEmail());
-            user.setPassword(userDTO.getPassword());
             user.setPhone(userDTO.getPhone());
         }
         userRepository.save(user);

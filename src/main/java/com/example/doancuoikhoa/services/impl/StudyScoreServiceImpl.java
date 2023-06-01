@@ -1,7 +1,10 @@
 package com.example.doancuoikhoa.services.impl;
 
+import com.example.doancuoikhoa.entities.Course;
 import com.example.doancuoikhoa.entities.StudyScore;
+import com.example.doancuoikhoa.model.CourseDTO;
 import com.example.doancuoikhoa.model.StudyScoreDTO;
+import com.example.doancuoikhoa.repositories.CourseRepository;
 import com.example.doancuoikhoa.repositories.StudyScoreRepository;
 import com.example.doancuoikhoa.services.StudyScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +19,21 @@ import java.util.List;
 public class StudyScoreServiceImpl implements StudyScoreService {
     @Autowired
     private StudyScoreRepository studyScoreRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
     @Override
     public void addStudyScoreService(StudyScoreDTO studyScoreDTO) {
         StudyScore studyScore = new StudyScore();
-        studyScore.setCourseName(studyScoreDTO.getCourseName());
-        studyScore.setCourseCode(studyScoreDTO.getCourseCode());
         studyScore.setStudyTimes(studyScoreDTO.getStudyTimes());
         studyScore.setTestScore(studyScoreDTO.getTestScore());
         studyScore.setEvaluate(studyScoreDTO.getEvaluate());
-        studyScore.setCreditName(studyScoreDTO.getCreditName());
         studyScore.setEndPoint(studyScoreDTO.getEndPoint());
         studyScore.setProcessPoint(studyScoreDTO.getProcessPoint());
         studyScore.setLetterPoint(studyScoreDTO.getLetterPoint());
-
+        Course course = new Course();
+        course.setId(studyScoreDTO.getCourseId());
+        studyScore.setCourse(course);
         studyScoreRepository.save(studyScore);
     }
 
@@ -36,16 +41,12 @@ public class StudyScoreServiceImpl implements StudyScoreService {
     public void updateStudyScore(StudyScoreDTO studyScoreDTO) throws Exception {
         StudyScore studyScore = studyScoreRepository.findStudyScoreById(studyScoreDTO.getId());
         if(studyScore != null) {
-            studyScore.setCourseName(studyScoreDTO.getCourseName());
-            studyScore.setCourseCode(studyScoreDTO.getCourseCode());
             studyScore.setStudyTimes(studyScoreDTO.getStudyTimes());
             studyScore.setTestScore(studyScoreDTO.getTestScore());
             studyScore.setEvaluate(studyScoreDTO.getEvaluate());
-            studyScore.setCreditName(studyScoreDTO.getCreditName());
             studyScore.setEndPoint(studyScoreDTO.getEndPoint());
             studyScore.setProcessPoint(studyScoreDTO.getProcessPoint());
             studyScore.setLetterPoint(studyScoreDTO.getLetterPoint());
-
             studyScoreRepository.save(studyScore);
         }
     }
@@ -73,16 +74,15 @@ public class StudyScoreServiceImpl implements StudyScoreService {
     private StudyScoreDTO converToDTO(StudyScore studyScore) {
         StudyScoreDTO studyScoreDTO = new StudyScoreDTO();
         studyScoreDTO.setId(studyScore.getId());
-        studyScoreDTO.setCourseName(studyScore.getCourseName());
-        studyScoreDTO.setCourseCode(studyScore.getCourseCode());
         studyScoreDTO.setStudyTimes(studyScore.getStudyTimes());
         studyScoreDTO.setTestScore(studyScore.getTestScore());
         studyScoreDTO.setEvaluate(studyScore.getEvaluate());
-        studyScoreDTO.setCreditName(studyScore.getCreditName());
         studyScoreDTO.setEndPoint(studyScore.getEndPoint());
         studyScoreDTO.setProcessPoint(studyScore.getProcessPoint());
         studyScoreDTO.setLetterPoint(studyScore.getLetterPoint());
-
+        studyScoreDTO.setCourseId(studyScore.getCourse().getId());
+        studyScoreDTO.setCourseName(studyScore.getCourse().getName());
+        studyScoreDTO.setCourseCreditName(studyScore.getCourse().getCreditName());
         return studyScoreDTO;
     }
 
