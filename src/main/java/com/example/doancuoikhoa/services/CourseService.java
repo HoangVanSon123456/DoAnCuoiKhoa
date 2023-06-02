@@ -17,7 +17,7 @@ public interface CourseService {
 
     List<CourseDTO> getCourseByEdu(Integer eduId);
 
-    void addEduCourse(EduProCourseDTO eduProCourseDTO);
+    void addEduCourse(EduProCourseDTO eduProCourseDTO , Integer eduId);
 
     List<CourseDTO> getListCourse();
 

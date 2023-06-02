@@ -1,13 +1,15 @@
 package com.example.doancuoikhoa.controllers;
 
-import com.example.doancuoikhoa.model.CourseDTO;
 import com.example.doancuoikhoa.model.UserDTO;
 import com.example.doancuoikhoa.services.UserService;
+import com.example.doancuoikhoa.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.util.StopWatch;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -19,10 +21,22 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/admin/user/create")
-    private UserDTO createUser(@RequestBody UserDTO userDTO) {
+    private UserDTO createUser(@RequestBody UserDTO userDTO, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        userDTO.setPhotos(fileName);
+
+        String uploadDir = "user-photos/" + createUser().getId();
+
+        FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
         userService.addUser(userDTO);
         return userDTO;
     }
+
+    private StopWatch createUser() {
+        return null;
+    }
+
     @GetMapping("/member/user")
     private List<UserDTO> getAll() {
         return userService.getListUser();

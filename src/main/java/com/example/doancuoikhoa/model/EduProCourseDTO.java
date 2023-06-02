@@ -8,5 +8,5 @@ import java.util.List;
 public class EduProCourseDTO {
     private Integer id;
     private Integer eduId;
-    private List<Integer> courseIds;
+    private Integer courseIds;
 }

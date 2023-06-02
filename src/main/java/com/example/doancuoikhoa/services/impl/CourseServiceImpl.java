@@ -2,12 +2,15 @@ package com.example.doancuoikhoa.services.impl;
 
 import com.example.doancuoikhoa.entities.Course;
 import com.example.doancuoikhoa.entities.EduProCourse;
+import com.example.doancuoikhoa.entities.EducationProgram;
 import com.example.doancuoikhoa.model.CourseDTO;
 import com.example.doancuoikhoa.model.EduProCourseDTO;
+import com.example.doancuoikhoa.model.EducationProgramDTO;
 import com.example.doancuoikhoa.repositories.CourseRepository;
 import com.example.doancuoikhoa.repositories.EduProCourseRepository;
 import com.example.doancuoikhoa.repositories.EducationProgramRepository;
 import com.example.doancuoikhoa.services.CourseService;
+import com.example.doancuoikhoa.services.EducationProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +28,8 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private EduProCourseRepository eduProCourseRepository;
 
-    private EducationProgramRepository educationProgramRepository;
+    @Autowired
+    private EducationProgramService educationProgramService;
     @Override
     public void addCourse(CourseDTO courseDTO) {
         Course course = new Course();
@@ -86,14 +90,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void addEduCourse(EduProCourseDTO eduProCourseDTO) {
+    public void addEduCourse(EduProCourseDTO eduProCourseDTO , Integer eduId) {
         List<EduProCourse> saveEduProCourse = new ArrayList<>();
-        for (Integer courseId : eduProCourseDTO.getCourseIds()) {
             EduProCourse eduProCourse = new EduProCourse();
-            eduProCourse.setCourseId(courseId);
-            eduProCourse.setEducationProgramId(eduProCourseDTO.getEduId());
+            eduProCourse.setCourseId(eduProCourseDTO.getCourseIds());
+            eduProCourse.setEducationProgramId(eduId);
             saveEduProCourse.add(eduProCourse);
-        }
         eduProCourseRepository.saveAll(saveEduProCourse);
     }
 

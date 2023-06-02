@@ -44,10 +44,9 @@ public class CourseAPIController {
         courseService.addCourse(courseDTO);
         return courseDTO;
     }
-
     @PostMapping("/admin/edu-course/add")
-    private EduProCourseDTO addCourse(@RequestBody EduProCourseDTO eduProCourseDTO) {
-        courseService.addEduCourse(eduProCourseDTO);
+    private EduProCourseDTO addCourse(@RequestBody EduProCourseDTO eduProCourseDTO, @RequestHeader("eduId") Integer eduId) {
+        courseService.addEduCourse(eduProCourseDTO, eduId);
         return eduProCourseDTO;
     }
 

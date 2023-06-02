@@ -13,23 +13,19 @@ import java.nio.file.StandardCopyOption;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUploadUtil {
-    public static String saveFile(String fileName, MultipartFile multipartFile)
-            throws IOException {
-        Path uploadPath = Paths.get("Files-Upload");
+    public static void saveFile(String uploadDir, String fileName,
+                                MultipartFile multipartFile) throws IOException {
+        Path uploadPath = Paths.get(uploadDir);
 
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
 
-        String fileCode = RandomStringUtils.randomAlphanumeric(8);
-
         try (InputStream inputStream = multipartFile.getInputStream()) {
-            Path filePath = uploadPath.resolve(fileCode + "-" + fileName);
+            Path filePath = uploadPath.resolve(fileName);
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ioe) {
-            throw new IOException("Could not save file: " + fileName, ioe);
+            throw new IOException("Could not save image file: " + fileName, ioe);
         }
-
-        return fileCode;
     }
 }

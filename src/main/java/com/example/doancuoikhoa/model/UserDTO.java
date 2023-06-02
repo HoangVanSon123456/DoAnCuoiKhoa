@@ -18,4 +18,5 @@ public class UserDTO {
     private String userPosition;
     private String refreshToken;
     private String accessToken;
+    private String photos;
 }
