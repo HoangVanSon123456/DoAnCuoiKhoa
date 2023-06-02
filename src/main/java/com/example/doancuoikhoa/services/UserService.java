@@ -69,9 +69,10 @@ public class UserService extends BaseService implements UserDetailsService {
         return ResponseEntity.ok(new UserResponse(accessToken, refreshToken));
     }
 
-    public ResponseEntity<?> logout(Integer userId, String refreshToken){
-        User user = userRepository.findUserById(userId);
-        if(user != null) {
+    public ResponseEntity<?> logout(String token){
+        Integer userId = getUserToken(token);
+        if(userId != null) {
+            User user = userRepository.findUserById(userId);
             user.setRefreshToken("");
             userRepository.save(user);
         }

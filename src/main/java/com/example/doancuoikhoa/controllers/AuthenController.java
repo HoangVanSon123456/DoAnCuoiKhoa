@@ -38,10 +38,9 @@ public class AuthenController {
         return userService.genNewAccessToken(refreshToken);
     }
 
-    @GetMapping("/authen/logout/{userId}")
-    public ResponseEntity<?> logout(@PathVariable(name = "userId") Integer userId,
-                                    @RequestHeader("refreshToken") String refreshToken) {
-        return userService.logout(userId, refreshToken);
+    @GetMapping("/authen/logout")
+    public ResponseEntity<?> logout( @RequestHeader("token") String token) {
+        return userService.logout(token);
     }
 
 //    @GetMapping("/member/profile/{id}")
