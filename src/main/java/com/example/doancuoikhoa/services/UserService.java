@@ -94,6 +94,9 @@ public class UserService extends BaseService implements UserDetailsService {
             userDTO.setId(user.getId());
             userDTO.setEmail(user.getEmail());
             userDTO.setName(user.getName());
+            userDTO.setUseName(user.getUseName());
+            userDTO.setAddress(user.getAddress());
+            userDTO.setPhone(user.getPhone());
         }else {
             throw new NotFoundException("Email not found");
         }
