@@ -92,10 +92,12 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void addEduCourse(EduProCourseDTO eduProCourseDTO , Integer eduId) {
         List<EduProCourse> saveEduProCourse = new ArrayList<>();
+        for (Integer courseId : eduProCourseDTO.getCourseIds()) {
             EduProCourse eduProCourse = new EduProCourse();
-            eduProCourse.setCourseId(eduProCourseDTO.getCourseIds());
+            eduProCourse.setCourseId(courseId);
             eduProCourse.setEducationProgramId(eduId);
             saveEduProCourse.add(eduProCourse);
+        }
         eduProCourseRepository.saveAll(saveEduProCourse);
     }
 
