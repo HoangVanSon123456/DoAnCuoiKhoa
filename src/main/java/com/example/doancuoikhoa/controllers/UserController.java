@@ -66,10 +66,12 @@ public class UserController {
         userService.updateUser(userDTO);
     }
 
-    @GetMapping(value = "/member/user/{id}")
+    @GetMapping(value = "/admin/user/{id}")
     public UserDTO getUser(@PathVariable(name = "id") Integer id) {
         return userService.getUserById(id);
     }
+
+
 
     @GetMapping(value = "/admin/user/search/{keyword}")
     public  List<UserDTO> search(@PathVariable(name = "keyword") String keyword) {

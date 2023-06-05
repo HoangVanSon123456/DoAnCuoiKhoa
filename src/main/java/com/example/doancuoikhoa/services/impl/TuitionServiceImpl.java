@@ -18,7 +18,7 @@ public class TuitionServiceImpl implements TuitionService {
     @Autowired
     private TuitionRepository tuitionRepository;
     @Override
-    public void addTuition(TuitionDTO tuitionDTO) {
+    public void addTuition(TuitionDTO tuitionDTO , Integer userId) {
         Tuition tuition = new Tuition();
         tuition.setTuitionType(tuitionDTO.getTuitionType());
         tuition.setPrice(tuitionDTO.getPrice());
@@ -27,6 +27,7 @@ public class TuitionServiceImpl implements TuitionService {
         tuition.setCreditName(tuitionDTO.getCreditName());
         tuition.setReLearn(tuitionDTO.getReLearn());
         tuition.setSemester(tuitionDTO.getSemester());
+        tuition.setUserId(userId);
         tuitionRepository.save(tuition);
     }
 
@@ -75,12 +76,23 @@ public class TuitionServiceImpl implements TuitionService {
         tuitionDTO.setCreditName(tuition.getCreditName());
         tuitionDTO.setReLearn(tuition.getReLearn());
         tuitionDTO.setSemester(tuition.getSemester());
+        tuitionDTO.setUserId(tuition.getUserId());
         return tuitionDTO;
     }
 
     @Override
     public List<TuitionDTO> getListTuition() {
         List<Tuition> tuitions = tuitionRepository.findAllBy();
+        List<TuitionDTO> tuitionDTOS = new ArrayList<>();
+        tuitions.forEach(tuition -> {
+            tuitionDTOS.add(converToDTO(tuition));
+        });
+        return tuitionDTOS;
+    }
+
+    @Override
+    public List<TuitionDTO> getUserTuition(Integer userId) {
+        List<Tuition> tuitions = tuitionRepository.findAllByUserId(userId);
         List<TuitionDTO> tuitionDTOS = new ArrayList<>();
         tuitions.forEach(tuition -> {
             tuitionDTOS.add(converToDTO(tuition));

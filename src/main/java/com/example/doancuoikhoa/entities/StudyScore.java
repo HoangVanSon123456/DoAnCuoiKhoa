@@ -34,6 +34,6 @@ public class StudyScore {
     @JoinColumn(name = "course_id")
     private Course course;
 
-
+    @Column(name = "user_id")
     private Integer userId;
 }

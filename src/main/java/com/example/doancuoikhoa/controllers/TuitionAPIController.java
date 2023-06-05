@@ -1,6 +1,7 @@
 package com.example.doancuoikhoa.controllers;
 
 
+import com.example.doancuoikhoa.model.StudyScoreDTO;
 import com.example.doancuoikhoa.model.TuitionDTO;
 import com.example.doancuoikhoa.services.TuitionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +32,18 @@ public class TuitionAPIController {
     }
 
     @PostMapping(value = "/admin/tuition/add")
-    private TuitionDTO addTuition(@RequestBody TuitionDTO tuitionDTO) {
-        tuitionService.addTuition(tuitionDTO);
+    private TuitionDTO addTuition(@RequestBody TuitionDTO tuitionDTO,@RequestHeader(name = "userId") Integer userId) {
+        tuitionService.addTuition(tuitionDTO,userId);
         return tuitionDTO;
     }
 
     @PutMapping(value = "/admin/tuition/update/{id}")
     public void updateUser(@PathVariable(name = "id") Long id,@RequestBody TuitionDTO tuitionDTO) throws Exception {
         tuitionService.updateTuition(tuitionDTO);
+    }
+
+    @GetMapping("/admin/user_tuition/{userId}")
+    private List<TuitionDTO> getAllByUserId(@PathVariable(name = "userId") Integer userId) {
+        return tuitionService.getUserTuition(userId);
     }
 }

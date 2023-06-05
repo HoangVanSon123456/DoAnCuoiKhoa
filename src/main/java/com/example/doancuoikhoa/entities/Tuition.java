@@ -28,4 +28,6 @@ public class Tuition implements Serializable {
     private  Long intoMoney;
     @Column(name = "semester")
     private String semester;
+    @Column(name = "user_id")
+    private Integer userId;
 }

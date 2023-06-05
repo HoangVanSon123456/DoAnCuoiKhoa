@@ -12,4 +12,6 @@ public class TuitionDTO {
     private Long reLearn;
     private Long intoMoney;
     private String semester;
+    private Integer userId;
+    private String userName;
 }

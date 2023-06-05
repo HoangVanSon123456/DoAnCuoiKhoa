@@ -1,5 +1,6 @@
 package com.example.doancuoikhoa.repositories;
 
+import com.example.doancuoikhoa.entities.StudyScore;
 import com.example.doancuoikhoa.entities.Tuition;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,5 +15,5 @@ public interface TuitionRepository extends JpaRepository<Tuition, Integer> {
 
     List<Tuition> findAllBy();
 
-
+    List<Tuition> findAllByUserId(Integer userId);
 }
