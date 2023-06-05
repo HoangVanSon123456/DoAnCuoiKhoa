@@ -1,6 +1,7 @@
 package com.example.doancuoikhoa.controllers;
 
 
+import com.example.doancuoikhoa.model.CourseDTO;
 import com.example.doancuoikhoa.model.NotificationDTO;
 import com.example.doancuoikhoa.services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,10 @@ public class NotificationAPIController {
     @PutMapping(value = "/admin/notification/update/{id}")
     public void updateUser(@PathVariable(name = "id") Long id,@RequestBody NotificationDTO notificationDTO) {
         notificationService.updateNotification(notificationDTO);
+    }
+
+    @GetMapping(value = "/admin/notification/search/{keyword}")
+    public  List<NotificationDTO> search(@PathVariable(name = "keyword") String keyword) {
+        return notificationService.search(keyword);
     }
 }

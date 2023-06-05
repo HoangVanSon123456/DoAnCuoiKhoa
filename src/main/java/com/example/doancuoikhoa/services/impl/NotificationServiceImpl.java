@@ -1,9 +1,11 @@
 package com.example.doancuoikhoa.services.impl;
 
 
+import com.example.doancuoikhoa.entities.Course;
 import com.example.doancuoikhoa.entities.Notification;
 import com.example.doancuoikhoa.entities.User;
 import com.example.doancuoikhoa.jwt.JwtTokenProvider;
+import com.example.doancuoikhoa.model.CourseDTO;
 import com.example.doancuoikhoa.model.NotificationDTO;
 import com.example.doancuoikhoa.repositories.NotificationRepository;
 import com.example.doancuoikhoa.repositories.UserRepository;
@@ -73,6 +75,16 @@ public class NotificationServiceImpl implements NotificationService {
            return converToDTO(notification);
         }
         return null;
+    }
+
+    @Override
+    public List<NotificationDTO> search(String keyword) {
+        List<Notification> notifications = notificationRepository.search(keyword);
+        List<NotificationDTO> notificationDTOS = new ArrayList<>();
+        notifications.forEach(notification -> {
+            notificationDTOS.add(converToDTO(notification));
+        });
+        return notificationDTOS;
     }
 
     @Override

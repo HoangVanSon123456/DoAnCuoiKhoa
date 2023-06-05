@@ -14,6 +14,6 @@ public interface NotificationService {
 
     NotificationDTO getNotificationById(Integer id);
 
-
+    List<NotificationDTO> search(String keyword);
     List<NotificationDTO> getListNotification();
 }
