@@ -16,4 +16,6 @@ public class StudyScoreDTO {
     private Integer courseId;
     private String courseName;
     private Integer courseCreditName;
+    private Integer userId;
+    private String userName;
 }

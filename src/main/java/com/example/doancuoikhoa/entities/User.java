@@ -19,6 +19,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "code")
+    private Integer code;
+
     @Column(name = "email")
     private String email;
 
@@ -61,6 +64,7 @@ public class User {
 
     @Column(name = "photos")
     private String photos;
+
 
 
 }

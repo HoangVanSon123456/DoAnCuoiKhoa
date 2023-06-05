@@ -93,6 +93,7 @@ public class UserService extends BaseService implements UserDetailsService {
         UserDTO userDTO = new UserDTO();
         if (user.getId() == getUserToken((token))) {
             userDTO.setId(user.getId());
+            user.setCode(userDTO.getCode());
             userDTO.setEmail(user.getEmail());
             userDTO.setName(user.getName());
             userDTO.setUseName(user.getUseName());
@@ -143,6 +144,7 @@ public class UserService extends BaseService implements UserDetailsService {
     public void addUser(UserDTO userDTO) {
         User user = new User();
         user.setName(userDTO.getName());
+        user.setCode(userDTO.getCode());
         user.setUseName(userDTO.getUseName());
         user.setAddress(userDTO.getAddress());
         user.setAge(userDTO.getAge());
@@ -160,6 +162,7 @@ public class UserService extends BaseService implements UserDetailsService {
         User user = userRepository.findUserById(userDTO.getId());
         if(user != null) {
             user.setId(userDTO.getId());
+            user.setCode(userDTO.getCode());
             user.setName(userDTO.getName());
             user.setUseName(userDTO.getUseName());
             user.setAddress(userDTO.getAddress());
@@ -192,6 +195,7 @@ public class UserService extends BaseService implements UserDetailsService {
     private UserDTO convertToDTO(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
+        userDTO.setCode(user.getCode());
         userDTO.setName(user.getName());
         userDTO.setUseName(user.getUseName());
         userDTO.setAddress(user.getAddress());

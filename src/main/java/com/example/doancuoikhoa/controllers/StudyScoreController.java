@@ -1,5 +1,6 @@
 package com.example.doancuoikhoa.controllers;
 
+import com.example.doancuoikhoa.model.CourseDTO;
 import com.example.doancuoikhoa.model.EducationProgramDTO;
 import com.example.doancuoikhoa.model.SectionClassDTO;
 import com.example.doancuoikhoa.model.StudyScoreDTO;
@@ -27,24 +28,36 @@ public class StudyScoreController {
     private StudyScoreDTO getStudyScoreById(@PathVariable(name = "id") Integer id) {
         return studyScoreService.getStudyScoreById(id);
     }
+
     @DeleteMapping(value = "/admin/studyscore/delete/{id}")
     private void deleteStudyScore(@PathVariable(name = "id") Integer id) throws Exception {
         studyScoreService.deleteStudyScore(id);
     }
 
     @PostMapping(value = "/admin/studyscore/add")
-    private StudyScoreDTO addEducationProgram(@RequestBody StudyScoreDTO studyScoreDTO) {
-        studyScoreService.addStudyScoreService(studyScoreDTO);
+    private StudyScoreDTO addEducationProgram(@RequestBody StudyScoreDTO studyScoreDTO, @RequestHeader("userId") Integer userId) {
+        studyScoreService.addStudyScoreService(studyScoreDTO, userId);
+        System.out.println(studyScoreDTO);
         return studyScoreDTO;
     }
 
     @PutMapping(value = "/admin/studyscore/update/{id}")
-    public void updateUser(@PathVariable(name = "id") Integer id,@RequestBody StudyScoreDTO studyScoreDTO) throws Exception {
+    public void updateUser(@PathVariable(name = "id") Integer id, @RequestBody StudyScoreDTO studyScoreDTO) throws Exception {
         studyScoreService.updateStudyScore(studyScoreDTO);
     }
 
     @GetMapping(value = "/admin/studyscore/search/{keyword}")
-    public  List<StudyScoreDTO> search(@PathVariable(name = "keyword") String keyword) {
+    public List<StudyScoreDTO> search(@PathVariable(name = "keyword") String keyword) {
         return studyScoreService.search(keyword);
+    }
+
+//    @GetMapping("/admin/user_studyscore/{userId}")
+//    private List<StudyScoreDTO> getCourseByEdu(@PathVariable(name = "userId") Integer userId) {
+//        return studyScoreService.getUserStudyScore(userId);
+//    }
+
+    @GetMapping("/admin/user_studyscore/{userId}")
+    private List<StudyScoreDTO> getAllByUserId(@PathVariable(name = "userId") Integer userId) {
+        return studyScoreService.getUserStudyScore(userId);
     }
 }

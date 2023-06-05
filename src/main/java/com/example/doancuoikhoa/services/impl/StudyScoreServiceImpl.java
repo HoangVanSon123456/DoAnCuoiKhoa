@@ -2,6 +2,7 @@ package com.example.doancuoikhoa.services.impl;
 
 import com.example.doancuoikhoa.entities.Course;
 import com.example.doancuoikhoa.entities.StudyScore;
+import com.example.doancuoikhoa.entities.User;
 import com.example.doancuoikhoa.model.CourseDTO;
 import com.example.doancuoikhoa.model.StudyScoreDTO;
 import com.example.doancuoikhoa.repositories.CourseRepository;
@@ -20,10 +21,8 @@ public class StudyScoreServiceImpl implements StudyScoreService {
     @Autowired
     private StudyScoreRepository studyScoreRepository;
 
-    @Autowired
-    private CourseRepository courseRepository;
     @Override
-    public void addStudyScoreService(StudyScoreDTO studyScoreDTO) {
+    public void addStudyScoreService(StudyScoreDTO studyScoreDTO, Integer userId) {
         StudyScore studyScore = new StudyScore();
         studyScore.setStudyTimes(studyScoreDTO.getStudyTimes());
         studyScore.setTestScore(studyScoreDTO.getTestScore());
@@ -34,6 +33,7 @@ public class StudyScoreServiceImpl implements StudyScoreService {
         Course course = new Course();
         course.setId(studyScoreDTO.getCourseId());
         studyScore.setCourse(course);
+        studyScore.setUserId(userId);
         studyScoreRepository.save(studyScore);
     }
 
@@ -105,5 +105,15 @@ public class StudyScoreServiceImpl implements StudyScoreService {
 //        });
 //        return studyScoreDTOS;
         return null;
+    }
+
+    @Override
+    public List<StudyScoreDTO> getUserStudyScore(Integer userId) {
+        List<StudyScore> studyScores = studyScoreRepository.findAllByUserId(userId);
+        List<StudyScoreDTO> studyScoreDTOS = new ArrayList<>();
+        studyScores.forEach(studyScore -> {
+            studyScoreDTOS.add(converToDTO(studyScore));
+        });
+        return studyScoreDTOS;
     }
 }

@@ -33,4 +33,7 @@ public class StudyScore {
     @OneToOne
     @JoinColumn(name = "course_id")
     private Course course;
+
+
+    private Integer userId;
 }
