@@ -1,5 +1,8 @@
 package com.example.doancuoikhoa.controllers;
 
+import com.example.doancuoikhoa.model.CourseDTO;
+import com.example.doancuoikhoa.model.EduProCourseDTO;
+import com.example.doancuoikhoa.model.StudentClassDTO;
 import com.example.doancuoikhoa.model.UserDTO;
 import com.example.doancuoikhoa.services.UserService;
 import com.example.doancuoikhoa.utils.FileUploadUtil;
@@ -37,7 +40,7 @@ public class UserController {
         return null;
     }
 
-    @GetMapping("/member/user")
+    @GetMapping("/admin/user")
     private List<UserDTO> getAll() {
         return userService.getListUser();
     }
@@ -71,6 +74,17 @@ public class UserController {
     @GetMapping(value = "/admin/user/search/{keyword}")
     public  List<UserDTO> search(@PathVariable(name = "keyword") String keyword) {
         return userService.searchUser(keyword);
+    }
+
+    @GetMapping("/admin/studentClass/{sectionClassId}")
+    private List<UserDTO> getCourseByEdu(@PathVariable(name = "sectionClassId") Integer sectionClassId) {
+        return userService.getStudentBySectionClass(sectionClassId);
+    }
+
+    @PostMapping("/admin/studentClass/add")
+    private StudentClassDTO addCourse(@RequestBody StudentClassDTO studentClassDTO, @RequestHeader("sectionClassId") Integer sectionClassId) {
+        userService.addStudentSectionClass(studentClassDTO, sectionClassId);
+        return studentClassDTO;
     }
 
 }

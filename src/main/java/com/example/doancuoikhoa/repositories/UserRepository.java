@@ -27,4 +27,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "SELECT u FROM User u WHERE CONCAT(u.name, ' ', u.id, ' ') LIKE %?1%")
     List<User> search(String keyword);
 
+    List<User> findAllByIdIn(List<Integer> userId);
 }

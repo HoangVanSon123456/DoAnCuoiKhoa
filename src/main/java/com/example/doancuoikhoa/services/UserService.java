@@ -1,10 +1,11 @@
 package com.example.doancuoikhoa.services;
 
 
+import com.example.doancuoikhoa.entities.EduProCourse;
+import com.example.doancuoikhoa.entities.StudentClass;
 import com.example.doancuoikhoa.entities.User;
 import com.example.doancuoikhoa.exceptions.NotFoundException;
-import com.example.doancuoikhoa.model.CustomUserDetails;
-import com.example.doancuoikhoa.model.UserDTO;
+import com.example.doancuoikhoa.model.*;
 import com.example.doancuoikhoa.response.UserResponse;
 import com.example.doancuoikhoa.utils.PasswordGenerator;
 import com.example.doancuoikhoa.utils.PositionEnum;
@@ -240,6 +241,29 @@ public class UserService extends BaseService implements UserDetailsService {
         return userDTOs;
     }
 
+    public List<UserDTO> getStudentBySectionClass(Integer sectionClassId) {
+        List<StudentClass> studentClasses = studentClassRepository.findAllBySectionClassId(sectionClassId);
+        List<Integer> userId = new ArrayList<>();
+        for (StudentClass data : studentClasses) {
+            userId.add(data.getUserId());
+        }
+        List<User> users = userRepository.findAllByIdIn(userId);
+        List<UserDTO> userDTOs = new ArrayList<>();
+        users.forEach(user -> {
+            userDTOs.add(convertToDTO(user));
+        });
+        return userDTOs;
+    };
 
+    public void addStudentSectionClass(StudentClassDTO sectionClassDTO , Integer sectionClassId) {
+        List<StudentClass> saveStudentClass = new ArrayList<>();
+        for (Integer userId : sectionClassDTO.getUserId()) {
+            StudentClass studentClass = new StudentClass();
+            studentClass.setUserId(userId);
+            studentClass.setSectionClassId(sectionClassId);
+            saveStudentClass.add(studentClass);
+        }
+        studentClassRepository.saveAll(saveStudentClass);
+    }
 
 }

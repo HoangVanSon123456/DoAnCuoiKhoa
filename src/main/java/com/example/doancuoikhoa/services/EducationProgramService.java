@@ -15,7 +15,6 @@ public interface EducationProgramService {
 
     EducationProgramDTO getEducationProgramById(Integer id);
 
-
     List<EducationProgramDTO> getListEducationProgram();
 
 }
