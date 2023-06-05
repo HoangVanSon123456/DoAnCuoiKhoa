@@ -17,6 +17,6 @@ public interface NotificationRepository extends JpaRepository<Notification, Inte
 
     List<Notification> findAllBy();
 
-    @Query(value = "SELECT n FROM Notification n WHERE CONCAT(n.title) LIKE %?1%")
+    @Query(value = "SELECT n FROM Notification n WHERE CONCAT(n.title, '') LIKE %?1%")
     List<Notification> search(String keyword);
 }

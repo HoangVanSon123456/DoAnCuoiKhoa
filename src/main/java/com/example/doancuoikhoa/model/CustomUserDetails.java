@@ -1,5 +1,6 @@
 package com.example.doancuoikhoa.model;
 
+import com.example.doancuoikhoa.entities.Course;
 import com.example.doancuoikhoa.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
