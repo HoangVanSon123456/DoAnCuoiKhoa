@@ -1,6 +1,7 @@
 package com.example.doancuoikhoa.controllers;
 
 import com.example.doancuoikhoa.model.EducationProgramDTO;
+import com.example.doancuoikhoa.model.SectionClassDTO;
 import com.example.doancuoikhoa.model.StudyScoreDTO;
 import com.example.doancuoikhoa.services.StudyScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,10 @@ public class StudyScoreController {
     @PutMapping(value = "/admin/studyscore/update/{id}")
     public void updateUser(@PathVariable(name = "id") Integer id,@RequestBody StudyScoreDTO studyScoreDTO) throws Exception {
         studyScoreService.updateStudyScore(studyScoreDTO);
+    }
+
+    @GetMapping(value = "/admin/studyscore/search/{keyword}")
+    public  List<StudyScoreDTO> search(@PathVariable(name = "keyword") String keyword) {
+        return studyScoreService.search(keyword);
     }
 }

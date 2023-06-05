@@ -1,6 +1,7 @@
 package com.example.doancuoikhoa.services;
 
 import com.example.doancuoikhoa.model.EducationProgramDTO;
+import com.example.doancuoikhoa.model.SectionClassDTO;
 import com.example.doancuoikhoa.model.StudyScoreDTO;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface StudyScoreService {
     StudyScoreDTO getStudyScoreById(Integer id);
 
     List<StudyScoreDTO> getStudyScore();
+
+    List<StudyScoreDTO> search(String keyword);
 }
