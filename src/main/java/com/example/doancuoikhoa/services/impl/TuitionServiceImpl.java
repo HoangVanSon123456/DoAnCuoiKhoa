@@ -76,7 +76,7 @@ public class TuitionServiceImpl implements TuitionService {
         tuitionDTO.setCreditName(tuition.getCreditName());
         tuitionDTO.setReLearn(tuition.getReLearn());
         tuitionDTO.setSemester(tuition.getSemester());
-        tuitionDTO.setUserId(tuition.getUserId());
+        tuitionDTO.setUserId(tuition .getUserId());
         return tuitionDTO;
     }
 

@@ -42,8 +42,8 @@ public class TuitionAPIController {
         tuitionService.updateTuition(tuitionDTO);
     }
 
-    @GetMapping("/admin/user_tuition/{userId}")
-    private List<TuitionDTO> getAllByUserId(@PathVariable(name = "userId") Integer userId) {
+    @GetMapping("/admin/user_tuition")
+    private List<TuitionDTO> getAllByUserId(@RequestHeader(name = "userId") Integer userId) {
         return tuitionService.getUserTuition(userId);
     }
 }

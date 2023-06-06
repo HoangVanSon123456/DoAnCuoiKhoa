@@ -51,13 +51,8 @@ public class StudyScoreController {
         return studyScoreService.search(keyword);
     }
 
-//    @GetMapping("/admin/user_studyscore/{userId}")
-//    private List<StudyScoreDTO> getCourseByEdu(@PathVariable(name = "userId") Integer userId) {
-//        return studyScoreService.getUserStudyScore(userId);
-//    }
-
-    @GetMapping("/admin/user_studyscore/{userId}")
-    private List<StudyScoreDTO> getAllByUserId(@PathVariable(name = "userId") Integer userId) {
+    @GetMapping("/admin/user_studyscore")
+    private List<StudyScoreDTO> getAllByUserId(@RequestHeader("userId") Integer userId) {
         return studyScoreService.getUserStudyScore(userId);
     }
 }
