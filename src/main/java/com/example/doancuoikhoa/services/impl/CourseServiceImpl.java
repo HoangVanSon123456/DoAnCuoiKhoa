@@ -6,17 +6,20 @@ import com.example.doancuoikhoa.entities.EducationProgram;
 import com.example.doancuoikhoa.model.CourseDTO;
 import com.example.doancuoikhoa.model.EduProCourseDTO;
 import com.example.doancuoikhoa.model.EducationProgramDTO;
+import com.example.doancuoikhoa.model.ResponseDTO;
 import com.example.doancuoikhoa.repositories.CourseRepository;
 import com.example.doancuoikhoa.repositories.EduProCourseRepository;
-import com.example.doancuoikhoa.repositories.EducationProgramRepository;
 import com.example.doancuoikhoa.services.CourseService;
 import com.example.doancuoikhoa.services.EducationProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 @Transactional
@@ -27,24 +30,31 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private EduProCourseRepository eduProCourseRepository;
-
-    @Autowired
-    private EducationProgramService educationProgramService;
+    
     @Override
-    public void addCourse(CourseDTO courseDTO) {
-        Course course = new Course();
-        course.setName(courseDTO.getName());
-        course.setCode(courseDTO.getCode());
-        course.setTheoryClass(courseDTO.getTheoryClass());
-        course.setPracticalClass(courseDTO.getPracticalClass());
-        course.setCreditName(courseDTO.getCreditName());
-        courseRepository.save(course);
+    public ResponseEntity<?> addCourse(CourseDTO courseDTO)  {
+        ResponseDTO<CourseDTO> responseDTO = new ResponseDTO<>();
+        try {
+            Course course = new Course();
+            course.setName(courseDTO.getName());
+            course.setCode(courseDTO.getCode());
+            course.setTheoryClass(courseDTO.getTheoryClass());
+            course.setPracticalClass(courseDTO.getPracticalClass());
+            course.setCreditName(courseDTO.getCreditName());
+            courseRepository.save(course);
+            responseDTO.setStatus(HttpStatus.OK.value());
+            responseDTO.setMessage("Thêm thành Công");
+        } catch (Exception e)  {
+            responseDTO.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            responseDTO.setMessage("Có lỗi xảy ra");
+        }
+        return ResponseEntity.ok(responseDTO);
     }
 
     @Override
     public void updateCourse(CourseDTO courseDTO) throws Exception {
         Course course = courseRepository.findCourseById(courseDTO.getId());
-        if(course != null) {
+        if (course != null) {
             course.setId(courseDTO.getId());
             course.setName(courseDTO.getName());
             course.setCode(courseDTO.getCode());
@@ -58,7 +68,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void deleteCourse(Integer id) throws Exception {
         Course course = courseRepository.findCourseById(id);
-        if(course != null) {
+        if (course != null) {
             courseRepository.delete(course);
         } else {
             throw new Exception("Không tìm thấy học phần");
@@ -68,7 +78,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseDTO getCourseById(Integer id) {
         Course course = courseRepository.findCourseById(id);
-        if(course != null) {
+        if (course != null) {
             return converToDTO(course);
         }
         return null;
@@ -90,7 +100,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void addEduCourse(EduProCourseDTO eduProCourseDTO , Integer eduId) {
+    public void addEduCourse(EduProCourseDTO eduProCourseDTO, Integer eduId) {
         List<EduProCourse> saveEduProCourse = new ArrayList<>();
         for (Integer courseId : eduProCourseDTO.getCourseIds()) {
             EduProCourse eduProCourse = new EduProCourse();
@@ -113,13 +123,22 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseDTO> getListCourse() {
-        List<Course> courses = courseRepository.findAllBy();
-        List<CourseDTO> courseDTOS = new ArrayList<>();
-        courses.forEach(course -> {
-            courseDTOS.add(converToDTO(course));
-        });
-        return courseDTOS;
+    public ResponseEntity<?> getListCourse() {
+        ResponseDTO<CourseDTO> responseDTO = new ResponseDTO<>();
+        try {
+            List<Course> courses = courseRepository.findAllBy();
+            List<CourseDTO> courseDTOS = new ArrayList<>();
+            courses.forEach(course -> {
+                courseDTOS.add(converToDTO(course));
+            });
+            responseDTO.setStatus(HttpStatus.OK.value());
+            responseDTO.setData(courseDTOS);
+            responseDTO.setMessage("Thành Công");
+        } catch (Exception e) {
+            responseDTO.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            responseDTO.setMessage("Có lỗi xảy ra");
+        }
+        return ResponseEntity.ok(responseDTO);
     }
 
     @Override

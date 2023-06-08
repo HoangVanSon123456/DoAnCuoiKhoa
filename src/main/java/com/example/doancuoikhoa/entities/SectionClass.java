@@ -15,4 +15,17 @@ public class SectionClass {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "semester")
+    private Integer semester;
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne()
+    @JoinColumn(name = "education_program_id")
+    private EducationProgram educationProgram;
+
+
 }

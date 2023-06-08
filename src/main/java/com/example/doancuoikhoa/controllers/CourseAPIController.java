@@ -5,6 +5,8 @@ import com.example.doancuoikhoa.model.EduProCourseDTO;
 import com.example.doancuoikhoa.model.ResponseDTO;
 import com.example.doancuoikhoa.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,11 +19,17 @@ public class CourseAPIController {
     @Autowired
     private CourseService courseService;
 
+//    @GetMapping("/admin/course")
+//    private ResponseDTO<CourseDTO> getAll() {
+//        ResponseDTO<CourseDTO> responseDTO = new ResponseDTO<CourseDTO>();
+//        responseDTO.setData(courseService.getListCourse());
+//        responseDTO.setStatus(HttpStatus.OK);
+//        return responseDTO;
+//    }
+
     @GetMapping("/admin/course")
-    private ResponseDTO<CourseDTO> getAll() {
-        ResponseDTO<CourseDTO> responseDTO = new ResponseDTO<CourseDTO>();
-        responseDTO.setData(courseService.getListCourse());
-        return responseDTO;
+    private ResponseEntity<?> getAll() {
+        return courseService.getListCourse();
     }
 
     @GetMapping("/admin/course/{id}")
@@ -40,9 +48,8 @@ public class CourseAPIController {
     }
 
     @PostMapping(value = "/admin/course/add")
-    private CourseDTO addCourse(@RequestBody CourseDTO courseDTO) {
-        courseService.addCourse(courseDTO);
-        return courseDTO;
+    private ResponseEntity<?> addCourse(@RequestBody CourseDTO courseDTO) {
+      return courseService.addCourse(courseDTO);
     }
     @PostMapping("/admin/edu-course/add")
     private EduProCourseDTO addCourse(@RequestBody EduProCourseDTO eduProCourseDTO, @RequestHeader("eduId") Integer eduId) {
@@ -56,7 +63,7 @@ public class CourseAPIController {
     }
 
     @GetMapping(value = "/admin/course/search/{keyword}")
-    public  List<CourseDTO> search(@PathVariable(name = "keyword") String keyword) {
+    public List<CourseDTO> search(@PathVariable(name = "keyword") String keyword) {
         return courseService.search(keyword);
     }
 }

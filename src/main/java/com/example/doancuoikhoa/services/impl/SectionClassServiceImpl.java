@@ -1,7 +1,11 @@
 package com.example.doancuoikhoa.services.impl;
 
+import com.example.doancuoikhoa.entities.EducationProgram;
 import com.example.doancuoikhoa.entities.SectionClass;
+import com.example.doancuoikhoa.entities.User;
+import com.example.doancuoikhoa.model.EducationProgramDTO;
 import com.example.doancuoikhoa.model.SectionClassDTO;
+import com.example.doancuoikhoa.model.UserDTO;
 import com.example.doancuoikhoa.repositories.SectionClassRepository;
 import com.example.doancuoikhoa.services.SectionClassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,15 @@ public class SectionClassServiceImpl implements SectionClassService {
     public void addSectionClassService(SectionClassDTO sectionClassDTO) {
         SectionClass sectionClass = new SectionClass();
         sectionClass.setName(sectionClassDTO.getName());
+        sectionClass.setSemester(sectionClassDTO.getSemester());
+        User user = new User();
+        user.setId(sectionClassDTO.getUserId());
+        user.setName(sectionClassDTO.getUserName());
+        sectionClass.setUser(user);
+        EducationProgram educationProgram = new EducationProgram();
+        educationProgram.setId(sectionClassDTO.getEducationProgramId());
+        educationProgram.setName(sectionClassDTO.getEducationProgramName());
+        sectionClass.setEducationProgram(educationProgram);
         sectionClassRepository.save(sectionClass);
     }
 
@@ -55,6 +68,11 @@ public class SectionClassServiceImpl implements SectionClassService {
         SectionClassDTO sectionClassDTO = new SectionClassDTO();
         sectionClassDTO.setId(sectionClass.getId());
         sectionClassDTO.setName(sectionClass.getName());
+        sectionClassDTO.setSemester(sectionClass.getSemester());
+        sectionClassDTO.setUserId(sectionClass.getUser().getId());
+        sectionClassDTO.setUserName(sectionClass.getUser().getName());
+        sectionClassDTO.setEducationProgramId(sectionClass.getEducationProgram().getId());
+        sectionClassDTO.setEducationProgramName(sectionClass.getEducationProgram().getName());
         return sectionClassDTO;
     }
 

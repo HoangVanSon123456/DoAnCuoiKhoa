@@ -20,8 +20,4 @@ public class EducationProgram implements Serializable {
 
     @Column(name = "name")
     private String name;
-
-    @Column(name = "semester")
-    private int semester;
-
 }

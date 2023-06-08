@@ -9,5 +9,4 @@ import java.util.List;
 public class EducationProgramDTO {
     private Integer id;
     private String name;
-    private Integer semester;
 }

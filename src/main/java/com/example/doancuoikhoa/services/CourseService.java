@@ -2,12 +2,13 @@ package com.example.doancuoikhoa.services;
 
 import com.example.doancuoikhoa.model.CourseDTO;
 import com.example.doancuoikhoa.model.EduProCourseDTO;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface CourseService {
 
-    void addCourse(CourseDTO courseDTO);
+    ResponseEntity<?> addCourse(CourseDTO courseDTO) ;
 
     void updateCourse(CourseDTO courseDTO) throws Exception;
 
@@ -19,7 +20,7 @@ public interface CourseService {
 
     void addEduCourse(EduProCourseDTO eduProCourseDTO , Integer eduId);
 
-    List<CourseDTO> getListCourse();
+    ResponseEntity<?> getListCourse();
 
     List<CourseDTO> search(String keyword);
 }

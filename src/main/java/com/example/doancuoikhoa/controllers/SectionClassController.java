@@ -1,6 +1,5 @@
 package com.example.doancuoikhoa.controllers;
 
-import com.example.doancuoikhoa.model.CourseDTO;
 import com.example.doancuoikhoa.model.SectionClassDTO;
 import com.example.doancuoikhoa.services.SectionClassService;
 import org.springframework.beans.factory.annotation.Autowired;

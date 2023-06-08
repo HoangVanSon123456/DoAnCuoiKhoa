@@ -27,7 +27,6 @@ public class EducationProgramServiceImpl implements EducationProgramService {
     @Override
     public void addEducationProgramService(EducationProgramDTO educationProgramDTO) {
         EducationProgram educationProgram =  new EducationProgram();
-        educationProgram.setSemester(educationProgramDTO.getSemester());
         educationProgram.setName(educationProgramDTO.getName());
 
         educationProgramRepository.save(educationProgram);
@@ -39,7 +38,6 @@ public class EducationProgramServiceImpl implements EducationProgramService {
         EducationProgram educationProgram = educationProgramRepository.findEducationProgramById(educationProgramDTO.getId());
         if(educationProgram != null) {
             educationProgram.setId(educationProgramDTO.getId());
-            educationProgram.setSemester(educationProgramDTO.getSemester());
             educationProgram.setName(educationProgramDTO.getName());
         }
         educationProgramRepository.save(educationProgram);
@@ -77,7 +75,6 @@ public class EducationProgramServiceImpl implements EducationProgramService {
     private EducationProgramDTO converToDTO(EducationProgram educationProgram) {
         EducationProgramDTO educationProgramDTO = new EducationProgramDTO();
         educationProgramDTO.setId(educationProgram.getId());
-        educationProgramDTO.setSemester(educationProgram.getSemester());
         educationProgramDTO.setName(educationProgram.getName());
         return educationProgramDTO;
     }
