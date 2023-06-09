@@ -1,8 +1,6 @@
 package com.example.doancuoikhoa.services;
 
 
-import com.example.doancuoikhoa.entities.EduProCourse;
-import com.example.doancuoikhoa.entities.StudentClass;
 import com.example.doancuoikhoa.entities.User;
 import com.example.doancuoikhoa.exceptions.NotFoundException;
 import com.example.doancuoikhoa.model.*;
@@ -93,7 +91,6 @@ public class UserService extends BaseService implements UserDetailsService {
         UserDTO userDTO = new UserDTO();
         if (user.getId() == getUserToken((token))) {
             userDTO.setId(user.getId());
-            user.setCode(userDTO.getCode());
             userDTO.setEmail(user.getEmail());
             userDTO.setName(user.getName());
             userDTO.setUseName(user.getUseName());
@@ -144,7 +141,6 @@ public class UserService extends BaseService implements UserDetailsService {
     public void addUser(UserDTO userDTO) {
         User user = new User();
         user.setName(userDTO.getName());
-        user.setCode(userDTO.getCode());
         user.setUseName(userDTO.getUseName());
         user.setAddress(userDTO.getAddress());
         user.setAge(userDTO.getAge());
@@ -162,7 +158,6 @@ public class UserService extends BaseService implements UserDetailsService {
         User user = userRepository.findUserById(userDTO.getId());
         if(user != null) {
             user.setId(userDTO.getId());
-            user.setCode(userDTO.getCode());
             user.setName(userDTO.getName());
             user.setUseName(userDTO.getUseName());
             user.setAddress(userDTO.getAddress());
@@ -195,7 +190,6 @@ public class UserService extends BaseService implements UserDetailsService {
     private UserDTO convertToDTO(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
-        userDTO.setCode(user.getCode());
         userDTO.setName(user.getName());
         userDTO.setUseName(user.getUseName());
         userDTO.setAddress(user.getAddress());
@@ -243,31 +237,6 @@ public class UserService extends BaseService implements UserDetailsService {
             userDTOs.add(convertToDTO(user));
         });
         return userDTOs;
-    }
-
-    public List<UserDTO> getStudentBySectionClass(Integer sectionClassId) {
-        List<StudentClass> studentClasses = studentClassRepository.findAllBySectionClassId(sectionClassId);
-        List<Integer> userId = new ArrayList<>();
-        for (StudentClass data : studentClasses) {
-            userId.add(data.getUserId());
-        }
-        List<User> users = userRepository.findAllByIdIn(userId);
-        List<UserDTO> userDTOs = new ArrayList<>();
-        users.forEach(user -> {
-            userDTOs.add(convertToDTO(user));
-        });
-        return userDTOs;
-    };
-
-    public void addStudentSectionClass(StudentClassDTO sectionClassDTO , Integer sectionClassId) {
-        List<StudentClass> saveStudentClass = new ArrayList<>();
-        for (Integer userId : sectionClassDTO.getUserId()) {
-            StudentClass studentClass = new StudentClass();
-            studentClass.setUserId(userId);
-            studentClass.setSectionClassId(sectionClassId);
-            saveStudentClass.add(studentClass);
-        }
-        studentClassRepository.saveAll(saveStudentClass);
     }
 
 }

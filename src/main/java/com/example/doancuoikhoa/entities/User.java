@@ -19,9 +19,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "code")
-    private Integer code;
-
     @Column(name = "email")
     private String email;
 
@@ -33,7 +30,6 @@ public class User {
 
     @Column(name = "user_position")
     private String userPosition;
-
 
     @Column(name = "access_token")
     private String accessToken;

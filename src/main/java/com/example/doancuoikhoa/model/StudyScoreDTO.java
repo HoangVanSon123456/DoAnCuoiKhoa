@@ -13,9 +13,7 @@ public class StudyScoreDTO {
     private Integer testScore;
     private Integer endPoint;
     private Integer letterPoint;
-    private Integer courseId;
-    private String courseName;
-    private Integer courseCreditName;
+    private Integer sectionScoreId;
     private Integer userId;
     private String userName;
 }

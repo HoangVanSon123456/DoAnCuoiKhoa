@@ -30,10 +30,10 @@ public class StudyScore {
     @Column(name = "letter_point")
     private Integer letterPoint;
 
-    @OneToOne
-    @JoinColumn(name = "course_id")
-    private Course course;
+    @Column(name = "sectionScore_id")
+    private Integer sectionScoreId;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

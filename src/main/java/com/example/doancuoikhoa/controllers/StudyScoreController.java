@@ -35,9 +35,8 @@ public class StudyScoreController {
     }
 
     @PostMapping(value = "/admin/studyscore/add")
-    private StudyScoreDTO addEducationProgram(@RequestBody StudyScoreDTO studyScoreDTO, @RequestHeader("userId") Integer userId) {
-        studyScoreService.addStudyScoreService(studyScoreDTO, userId);
-        System.out.println(studyScoreDTO);
+    private StudyScoreDTO addEducationProgram(@RequestBody StudyScoreDTO studyScoreDTO, @RequestHeader("sectionScoreId") Integer sectionScoreId) {
+        studyScoreService.addStudyScoreService(studyScoreDTO, sectionScoreId);
         return studyScoreDTO;
     }
 
@@ -51,8 +50,8 @@ public class StudyScoreController {
         return studyScoreService.search(keyword);
     }
 
-    @GetMapping("/admin/user_studyscore")
-    private List<StudyScoreDTO> getAllByUserId(@RequestHeader("userId") Integer userId) {
-        return studyScoreService.getUserStudyScore(userId);
+    @GetMapping("/admin/sectionScore_studyScore/{sectionScoreId}")
+    private List<StudyScoreDTO> getAllBySectionScoreId(@PathVariable(name = "sectionScoreId") Integer sectionScoreId) {
+        return studyScoreService.getSectionScoreStudyScore(sectionScoreId);
     }
 }

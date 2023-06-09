@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface StudyScoreService {
 
-    void addStudyScoreService(StudyScoreDTO studyScoreDTO, Integer userId);
+    void addStudyScoreService(StudyScoreDTO studyScoreDTO, Integer sectionScoreId);
 
     void updateStudyScore(StudyScoreDTO studyScoreDTO) throws Exception;
 
@@ -19,5 +19,5 @@ public interface StudyScoreService {
     List<StudyScoreDTO> getStudyScore();
 
     List<StudyScoreDTO> search(String keyword);
-    List<StudyScoreDTO> getUserStudyScore(Integer userId);
+    List<StudyScoreDTO> getSectionScoreStudyScore(Integer sectionScoreId);
 }
