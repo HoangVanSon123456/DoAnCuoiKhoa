@@ -21,12 +21,9 @@ public class TuitionServiceImpl implements TuitionService {
     public void addTuition(TuitionDTO tuitionDTO , Integer userId) {
         Tuition tuition = new Tuition();
         tuition.setTuitionType(tuitionDTO.getTuitionType());
-        tuition.setPrice(tuitionDTO.getPrice());
-        tuition.setDiscount(tuitionDTO.getDiscount());
         tuition.setIntoMoney(tuitionDTO.getIntoMoney());
-        tuition.setCreditName(tuitionDTO.getCreditName());
-        tuition.setReLearn(tuitionDTO.getReLearn());
         tuition.setSemester(tuitionDTO.getSemester());
+        tuition.setStatus(tuitionDTO.getStatus());
         tuition.setUserId(userId);
         tuitionRepository.save(tuition);
     }
@@ -36,13 +33,10 @@ public class TuitionServiceImpl implements TuitionService {
         Tuition tuition = tuitionRepository.findTuitionById(tuitionDTO.getId());
         if(tuition != null) {
             tuition.setId(tuitionDTO.getId());
-            tuition.setTuitionType(tuition.getTuitionType());
-            tuition.setPrice(tuitionDTO.getPrice());
-            tuition.setDiscount(tuitionDTO.getDiscount());
+            tuition.setTuitionType(tuitionDTO.getTuitionType());
             tuition.setIntoMoney(tuitionDTO.getIntoMoney());
-            tuition.setCreditName(tuitionDTO.getCreditName());
-            tuition.setReLearn(tuitionDTO.getReLearn());
             tuition.setSemester(tuitionDTO.getSemester());
+            tuition.setStatus(tuitionDTO.getStatus());
         }
         tuitionRepository.save(tuition);
     }
@@ -70,13 +64,10 @@ public class TuitionServiceImpl implements TuitionService {
         TuitionDTO tuitionDTO = new TuitionDTO();
         tuitionDTO.setId(tuition.getId());
         tuitionDTO.setTuitionType(tuition.getTuitionType());
-        tuitionDTO.setPrice(tuition.getPrice());
-        tuitionDTO.setDiscount(tuition.getDiscount());
         tuitionDTO.setIntoMoney(tuition.getIntoMoney());
-        tuitionDTO.setCreditName(tuition.getCreditName());
-        tuitionDTO.setReLearn(tuition.getReLearn());
         tuitionDTO.setSemester(tuition.getSemester());
         tuitionDTO.setUserId(tuition .getUserId());
+        tuitionDTO.setStatus(tuition.getStatus());
         return tuitionDTO;
     }
 

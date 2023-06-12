@@ -16,18 +16,12 @@ public class Tuition implements Serializable {
     private Integer id;
     @Column(name = "tuition_type")
     private String tuitionType;
-    @Column(name = "credit_name")
-    private String creditName;
-    @Column(name = "price")
-    private Long price;
-    @Column(name = "discount")
-    private Long discount;
-    @Column(name = "reLearn")
-    private Long reLearn;
     @Column(name = "into_money")
     private  Long intoMoney;
     @Column(name = "semester")
     private String semester;
     @Column(name = "user_id")
     private Integer userId;
+    @Column(name = "status")
+    private String status;
 }

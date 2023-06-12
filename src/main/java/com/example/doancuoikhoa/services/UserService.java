@@ -150,14 +150,13 @@ public class UserService extends BaseService implements UserDetailsService {
         user.setPhone(userDTO.getPhone());
         user.setEnabled(true);
         user.setUserRole(RoleEnum.MEMBER.getRoleName());
-        user.setUserPosition(PositionEnum.STUDENT.getPositionName());
+        user.setUserPosition(userDTO.getUserPosition());
         userRepository.save(user);
     }
 
     public void updateUser(UserDTO userDTO) throws Exception {
         User user = userRepository.findUserById(userDTO.getId());
         if(user != null) {
-            user.setId(userDTO.getId());
             user.setName(userDTO.getName());
             user.setUseName(userDTO.getUseName());
             user.setAddress(userDTO.getAddress());
@@ -165,6 +164,8 @@ public class UserService extends BaseService implements UserDetailsService {
             user.setGender(userDTO.getGender());
             user.setEmail(userDTO.getEmail());
             user.setPhone(userDTO.getPhone());
+            user.setUserRole(RoleEnum.MEMBER.getRoleName());
+            user.setUserPosition(userDTO.getUserPosition());
         }
         userRepository.save(user);
     }
@@ -196,9 +197,10 @@ public class UserService extends BaseService implements UserDetailsService {
         userDTO.setAge(user.getAge());
         userDTO.setGender(user.getGender());
         userDTO.setEmail(user.getEmail());
-        userDTO.setPassword(user.getPassword());
+//        userDTO.setPassword(user.getPassword());
         userDTO.setPhone(user.getPhone());
-
+        userDTO.setUserPosition(user.getUserPosition());
+        userDTO.setUserRole(user.getUserRole());
         return userDTO;
     }
 
