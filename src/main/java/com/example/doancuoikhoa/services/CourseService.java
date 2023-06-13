@@ -14,6 +14,8 @@ public interface CourseService {
 
     void deleteCourse(Integer id) throws Exception;
 
+    void deleteEduCourse(Integer courseId , Integer educationProgramId) throws Exception;
+
     CourseDTO getCourseById(Integer id);
 
     List<CourseDTO> getCourseByEdu(Integer eduId);
@@ -23,4 +25,7 @@ public interface CourseService {
     ResponseEntity<?> getListCourse();
 
     List<CourseDTO> search(String keyword);
+
+    ResponseEntity<?> getOneEduCourse(Integer id);
+
 }

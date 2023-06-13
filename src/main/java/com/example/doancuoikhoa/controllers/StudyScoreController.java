@@ -37,6 +37,7 @@ public class StudyScoreController {
     @PostMapping(value = "/admin/studyscore/add")
     private StudyScoreDTO addEducationProgram(@RequestBody StudyScoreDTO studyScoreDTO, @RequestHeader("sectionScoreId") Integer sectionScoreId) {
         studyScoreService.addStudyScoreService(studyScoreDTO, sectionScoreId);
+        System.out.println(studyScoreDTO);
         return studyScoreDTO;
     }
 

@@ -37,6 +37,11 @@ public class CourseAPIController {
         return courseService.getCourseById(id);
     }
 
+    @GetMapping("/admin/edu_course/{id}")
+    private ResponseEntity<?> getEduProCourseById(@PathVariable(name = "id") Integer id) {
+        return courseService.getOneEduCourse(id);
+    }
+
     @GetMapping("/admin/edu-course/{eduId}")
     private List<CourseDTO> getCourseByEdu(@PathVariable(name = "eduId") Integer eduId) {
         return courseService.getCourseByEdu(eduId);
@@ -45,6 +50,11 @@ public class CourseAPIController {
     @DeleteMapping(value = "/admin/course/delete/{id}")
     private void deleteCourse(@PathVariable(name = "id") Integer id) throws Exception {
         courseService.deleteCourse(id);
+    }
+
+    @DeleteMapping(value = "/admin/edu-course/delete/{courseId}/{educationProgramId}")
+    private void deleteEduCourse(@PathVariable(name = "courseId") Integer courseId,@PathVariable(name = "educationProgramId") Integer educationProgramId) throws Exception {
+        courseService.deleteEduCourse(courseId,educationProgramId);
     }
 
     @PostMapping(value = "/admin/course/add")

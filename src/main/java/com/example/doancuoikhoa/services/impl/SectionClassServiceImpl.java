@@ -43,6 +43,11 @@ public class SectionClassServiceImpl implements SectionClassService {
         SectionClass sectionClass = sectionClassRepository.findSectionClassById(sectionClassDTO.getId());
         if (sectionClass != null) {
             sectionClass.setName(sectionClassDTO.getName());
+            sectionClass.setSemester(sectionClassDTO.getSemester());
+            User user = new User();
+            user.setId(sectionClassDTO.getUserId());
+            user.setName(sectionClassDTO.getUserName());
+            sectionClass.setUser(user);
             sectionClassRepository.save(sectionClass);
         }
     }

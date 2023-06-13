@@ -19,16 +19,16 @@ public class StudyScore {
     private String evaluate;
 
     @Column(name = "process_point")
-    private Integer processPoint;
+    private Float processPoint;
 
     @Column(name = "test_score")
-    private Integer testScore;
+    private Float testScore;
 
     @Column(name = "end_point")
-    private Integer endPoint;
+    private Float endPoint;
 
     @Column(name = "letter_point")
-    private Integer letterPoint;
+    private String letterPoint;
 
     @Column(name = "sectionScore_id")
     private Integer sectionScoreId;

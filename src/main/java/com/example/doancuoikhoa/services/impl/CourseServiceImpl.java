@@ -2,15 +2,10 @@ package com.example.doancuoikhoa.services.impl;
 
 import com.example.doancuoikhoa.entities.Course;
 import com.example.doancuoikhoa.entities.EduProCourse;
-import com.example.doancuoikhoa.entities.EducationProgram;
-import com.example.doancuoikhoa.model.CourseDTO;
-import com.example.doancuoikhoa.model.EduProCourseDTO;
-import com.example.doancuoikhoa.model.EducationProgramDTO;
-import com.example.doancuoikhoa.model.ResponseDTO;
+import com.example.doancuoikhoa.model.*;
 import com.example.doancuoikhoa.repositories.CourseRepository;
 import com.example.doancuoikhoa.repositories.EduProCourseRepository;
 import com.example.doancuoikhoa.services.CourseService;
-import com.example.doancuoikhoa.services.EducationProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +25,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private EduProCourseRepository eduProCourseRepository;
-    
+
     @Override
     public ResponseEntity<?> addCourse(CourseDTO courseDTO)  {
         ResponseDTO<CourseDTO> responseDTO = new ResponseDTO<>();
@@ -72,6 +67,16 @@ public class CourseServiceImpl implements CourseService {
             courseRepository.delete(course);
         } else {
             throw new Exception("Không tìm thấy học phần");
+        }
+    }
+
+    @Override
+    public void deleteEduCourse(Integer courseId , Integer educationProgramId) throws Exception {
+        EduProCourse eduProCourse = eduProCourseRepository.findEduProCourseById(courseId, educationProgramId);
+        if(eduProCourse != null) {
+            eduProCourseRepository.delete(eduProCourse);
+        }else {
+            throw new Exception("Không tìm thấy học phần trong chuong trinh dao tao");
         }
     }
 
@@ -150,4 +155,15 @@ public class CourseServiceImpl implements CourseService {
         });
         return courseDTOS;
     }
+
+    @Override
+    public ResponseEntity<?> getOneEduCourse(Integer id) {
+        EduProCourse eduProCourse = eduProCourseRepository.getOne(id);
+        EduProCourseDTO eduProCourseDTO = new EduProCourseDTO();
+        eduProCourseDTO.setId(eduProCourse.getId());
+        return ResponseEntity.ok(eduProCourseDTO);
+    }
+
+
+
 }

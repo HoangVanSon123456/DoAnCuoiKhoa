@@ -9,10 +9,10 @@ public class StudyScoreDTO {
     private Integer id;
     private String studyTimes;
     private String evaluate;
-    private Integer processPoint;
-    private Integer testScore;
-    private Integer endPoint;
-    private Integer letterPoint;
+    private Float processPoint;
+    private Float testScore;
+    private Float endPoint;
+    private String letterPoint;
     private Integer sectionScoreId;
     private Integer userId;
     private String userName;
