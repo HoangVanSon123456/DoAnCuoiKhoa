@@ -37,7 +37,6 @@ public class EducationProgramServiceImpl implements EducationProgramService {
     public void updateEducationProgram(EducationProgramDTO educationProgramDTO) throws Exception {
         EducationProgram educationProgram = educationProgramRepository.findEducationProgramById(educationProgramDTO.getId());
         if(educationProgram != null) {
-            educationProgram.setId(educationProgramDTO.getId());
             educationProgram.setName(educationProgramDTO.getName());
         }
         educationProgramRepository.save(educationProgram);

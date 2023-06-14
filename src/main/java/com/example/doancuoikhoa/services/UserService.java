@@ -9,6 +9,7 @@ import com.example.doancuoikhoa.utils.PasswordGenerator;
 import com.example.doancuoikhoa.utils.PositionEnum;
 import com.example.doancuoikhoa.utils.RoleEnum;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -164,7 +165,6 @@ public class UserService extends BaseService implements UserDetailsService {
             user.setGender(userDTO.getGender());
             user.setEmail(userDTO.getEmail());
             user.setPhone(userDTO.getPhone());
-            user.setUserRole(RoleEnum.MEMBER.getRoleName());
             user.setUserPosition(userDTO.getUserPosition());
         }
         userRepository.save(user);
@@ -239,6 +239,16 @@ public class UserService extends BaseService implements UserDetailsService {
             userDTOs.add(convertToDTO(user));
         });
         return userDTOs;
+    }
+
+    public void changePassword(UserDTO userDTO) {
+        User user = userRepository.getOne(userDTO.getId());
+        if (user != null && PasswordGenerator.checkHashStrings(userDTO.getPassword(), user.getPassword())) {
+            user.setPassword(PasswordGenerator.encrytePassword(userDTO.getNewPassword()));
+            userRepository.save(user);
+        } else {
+            throw new DataIntegrityViolationException("wrong password");
+        }
     }
 
 }

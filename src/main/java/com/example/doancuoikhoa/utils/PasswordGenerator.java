@@ -26,6 +26,11 @@ public class PasswordGenerator {
         return generatedString;
     }
 
+    public static boolean checkHashStrings(String rawPassword, String encodedPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(STR_LENGTH);
+        return passwordEncoder.matches(rawPassword, encodedPassword);
+    }
+
     public static void main(String[] args) {
         String password = "123456";
         String encrytedPassword = encrytePassword(password);

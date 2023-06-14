@@ -63,4 +63,10 @@ public class AuthenController {
         return userService.getUser(id, token);
     }
 
+    @PutMapping(value = "/authen/change-password")
+    public void changePassword(@RequestBody UserDTO userDTO) {
+
+        userService.changePassword(userDTO);
+    }
+
 }

@@ -56,10 +56,25 @@ public class StudyScoreServiceImpl implements StudyScoreService {
         if(studyScore != null) {
             studyScore.setStudyTimes(studyScoreDTO.getStudyTimes());
             studyScore.setTestScore(studyScoreDTO.getTestScore());
-            studyScore.setEvaluate(studyScoreDTO.getEvaluate());
-            studyScore.setEndPoint(studyScoreDTO.getEndPoint());
             studyScore.setProcessPoint(studyScoreDTO.getProcessPoint());
-            studyScore.setLetterPoint(studyScoreDTO.getLetterPoint());
+            Float average = ((studyScoreDTO.getTestScore() + studyScoreDTO.getProcessPoint())/2);
+            if(average >= 8.5) {
+                studyScore.setLetterPoint("A");
+            } else if(average >= 7.5) {
+                studyScore.setLetterPoint("B");
+            } else if(average >= 6.5) {
+                studyScore.setLetterPoint("C");
+            }else if(average >= 5.5) {
+                studyScore.setLetterPoint("D");
+            } else {
+                studyScore.setLetterPoint("F");
+            }
+            if(average <= 4.5) {
+                studyScore.setEvaluate("Chưa Đạt");
+            } else  {
+                studyScore.setEvaluate("Đạt");
+            }
+            studyScore.setEndPoint(average);
             studyScoreRepository.save(studyScore);
         }
     }
