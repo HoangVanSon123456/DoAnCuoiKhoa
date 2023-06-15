@@ -34,15 +34,15 @@ public class UserController {
 //        return userDTO;
 //    }
 
-    @PostMapping("/admin/user/create")
-    private UserDTO createUser(@RequestBody UserDTO userDTO) throws IOException {
-
-        userService.addUser(userDTO);
+    @PostMapping("/admin/userTeacher/create")
+    private UserDTO createTeacherUser(@RequestBody UserDTO userDTO) throws IOException {
+        userService.addUserTeacher(userDTO);
         return userDTO;
     }
-
-    private StopWatch createUser() {
-        return null;
+    @PostMapping("/admin/userStudent/create")
+    private UserDTO createStudentUser(@RequestBody UserDTO userDTO) throws IOException {
+        userService.addUserStudent(userDTO);
+        return userDTO;
     }
 
     @GetMapping("/admin/user")
@@ -67,18 +67,20 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    @PutMapping(value = "/admin/user/update/{id}")
-    public void updateUser(@PathVariable(name = "id") Integer id,@RequestBody UserDTO userDTO) throws Exception {
+    @PutMapping(value = "/admin/userTeacher/update/{id}")
+    public void updateUserTeacher(@PathVariable(name = "id") Integer id,@RequestBody UserDTO userDTO) throws Exception {
+        userService.updateUserTeacher(userDTO);
+    }
 
-        userService.updateUser(userDTO);
+    @PutMapping(value = "/admin/userStudent/update/{id}")
+    public void updateUserStudent(@PathVariable(name = "id") Integer id,@RequestBody UserDTO userDTO) throws Exception {
+        userService.updateUserStudent(userDTO);
     }
 
     @GetMapping(value = "/admin/user/{id}")
     public UserDTO getUser(@PathVariable(name = "id") Integer id) {
         return userService.getUserById(id);
     }
-
-
 
     @GetMapping(value = "/admin/user/search/{keyword}")
     public  List<UserDTO> search(@PathVariable(name = "keyword") String keyword) {

@@ -24,7 +24,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "SELECT u FROM User u WHERE u.userPosition = 'STUDENT'")
     List<User> findAllByPositionStruden(String userPosition);
 
-    @Query(value = "SELECT u FROM User u WHERE CONCAT(u.code, ' ', u.name, ' ') LIKE %?1%")
+    @Query(value = "SELECT u FROM User u WHERE CONCAT(u.code, ' ',u.name, ' ') LIKE %?1%")
     List<User> search(String keyword);
 
 }

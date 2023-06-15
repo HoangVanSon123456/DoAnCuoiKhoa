@@ -138,7 +138,7 @@ public class UserService extends BaseService implements UserDetailsService {
         return new CustomUserDetails(user, authorities);
     }
 
-    public void addUser(UserDTO userDTO) {
+    public void addUserTeacher(UserDTO userDTO) {
         User user = new User();
         user.setName(userDTO.getName());
         user.setUseName(userDTO.getUseName());
@@ -149,16 +149,34 @@ public class UserService extends BaseService implements UserDetailsService {
         user.setPassword(PasswordGenerator.encrytePassword(userDTO.getPassword()));
         user.setPhone(userDTO.getPhone());
         user.setEnabled(true);
-        user.setUserRole(RoleEnum.MEMBER.getRoleName());
+        user.setUserRole(RoleEnum.ADMIN.getRoleName());
         user.setUserPosition(userDTO.getUserPosition());
         user.setCode(userDTO.getCode());
         user.setDepict(userDTO.getDepict());
+        user.setUserPosition(RoleEnum.TEACHER.getRoleName());
         user.setPosition(userDTO.getPosition());
         user.setSubject(userDTO.getSubject());
         userRepository.save(user);
     }
 
-    public void updateUser(UserDTO userDTO) throws Exception {
+    public void addUserStudent(UserDTO userDTO) {
+        User user = new User();
+        user.setCode(userDTO.getCode());
+        user.setName(userDTO.getName());
+        user.setUseName(userDTO.getUseName());
+        user.setAddress(userDTO.getAddress());
+        user.setAge(userDTO.getAge());
+        user.setGender(userDTO.getGender());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(PasswordGenerator.encrytePassword(userDTO.getPassword()));
+        user.setPhone(userDTO.getPhone());
+        user.setEnabled(true);
+        user.setUserRole(RoleEnum.MEMBER.getRoleName());
+        user.setUserPosition(RoleEnum.STUDENT.getRoleName());
+        userRepository.save(user);
+    }
+
+    public void updateUserTeacher(UserDTO userDTO) throws Exception {
         User user = userRepository.findUserById(userDTO.getId());
         if(user != null) {
             user.setName(userDTO.getName());
@@ -173,6 +191,22 @@ public class UserService extends BaseService implements UserDetailsService {
             user.setDepict(userDTO.getDepict());
             user.setPosition(userDTO.getPosition());
             user.setSubject(userDTO.getSubject());
+        }
+        userRepository.save(user);
+    }
+
+    public void updateUserStudent(UserDTO userDTO) throws Exception {
+        User user = userRepository.findUserById(userDTO.getId());
+        if(user != null) {
+            user.setCode((userDTO.getCode()));
+            user.setName(userDTO.getName());
+            user.setUseName(userDTO.getUseName());
+            user.setAddress(userDTO.getAddress());
+            user.setAge(userDTO.getAge());
+            user.setGender(userDTO.getGender());
+            user.setEmail(userDTO.getEmail());
+            user.setPhone(userDTO.getPhone());
+            user.setUserPosition(userDTO.getUserPosition());
         }
         userRepository.save(user);
     }
