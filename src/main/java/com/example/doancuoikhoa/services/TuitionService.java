@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface TuitionService {
 
-    void addTuition(TuitionDTO tuitionDTO, Integer userId);
+    void addTuition(TuitionDTO tuitionDTO);
 
     void updateTuition(TuitionDTO tuitionDTO) throws Exception;
 

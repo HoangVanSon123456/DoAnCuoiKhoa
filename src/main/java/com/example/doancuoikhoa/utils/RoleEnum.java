@@ -1,7 +1,7 @@
 package com.example.doancuoikhoa.utils;
 
 public enum  RoleEnum {
-    ADMIN(1, "ROLE_ADMIN") , MEMBER(2, "ROLE_MEMBER");
+    ADMIN(1, "ROLE_ADMIN") , MEMBER(2, "ROLE_MEMBER"),TEACHER(3, "TEACHER") , STUDENT(4, "STUDENT");;
     private int roleId;
     private String roleName;
 

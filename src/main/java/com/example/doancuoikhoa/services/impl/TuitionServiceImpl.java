@@ -1,6 +1,7 @@
 package com.example.doancuoikhoa.services.impl;
 
 import com.example.doancuoikhoa.entities.Tuition;
+import com.example.doancuoikhoa.entities.User;
 import com.example.doancuoikhoa.model.TuitionDTO;
 import com.example.doancuoikhoa.repositories.TuitionRepository;
 import com.example.doancuoikhoa.services.TuitionService;
@@ -18,13 +19,16 @@ public class TuitionServiceImpl implements TuitionService {
     @Autowired
     private TuitionRepository tuitionRepository;
     @Override
-    public void addTuition(TuitionDTO tuitionDTO , Integer userId) {
+    public void addTuition(TuitionDTO tuitionDTO) {
         Tuition tuition = new Tuition();
         tuition.setTuitionType(tuitionDTO.getTuitionType());
         tuition.setIntoMoney(tuitionDTO.getIntoMoney());
         tuition.setSemester(tuitionDTO.getSemester());
         tuition.setStatus(tuitionDTO.getStatus());
-        tuition.setUserId(userId);
+        User user = new User();
+        user.setId(tuitionDTO.getUserId());
+        user.setName(tuitionDTO.getUserName());
+        tuition.setUser(user);
         tuitionRepository.save(tuition);
     }
 
@@ -66,7 +70,8 @@ public class TuitionServiceImpl implements TuitionService {
         tuitionDTO.setTuitionType(tuition.getTuitionType());
         tuitionDTO.setIntoMoney(tuition.getIntoMoney());
         tuitionDTO.setSemester(tuition.getSemester());
-        tuitionDTO.setUserId(tuition .getUserId());
+        tuitionDTO.setUserId(tuition.getUser().getId());
+        tuitionDTO.setUserName(tuition.getUser().getName());
         tuitionDTO.setStatus(tuition.getStatus());
         return tuitionDTO;
     }

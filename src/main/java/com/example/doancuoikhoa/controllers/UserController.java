@@ -1,5 +1,6 @@
 package com.example.doancuoikhoa.controllers;
 
+import com.example.doancuoikhoa.model.ResponseDTO;
 import com.example.doancuoikhoa.model.UserDTO;
 import com.example.doancuoikhoa.services.UserService;
 import com.example.doancuoikhoa.utils.FileUploadUtil;
@@ -50,8 +51,10 @@ public class UserController {
     }
 
     @GetMapping("/admin/teacher")
-    private List<UserDTO> getAllTeacher() {
-        return userService.getListUserTeacher();
+    private ResponseDTO<UserDTO> getAllTeacher() {
+        ResponseDTO<UserDTO> responseDTO = new ResponseDTO<UserDTO>();
+        responseDTO.setData(userService.getListUserTeacher());
+        return responseDTO;
     }
 
     @GetMapping("/admin/student")

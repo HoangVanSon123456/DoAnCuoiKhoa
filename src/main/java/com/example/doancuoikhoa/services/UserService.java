@@ -6,7 +6,6 @@ import com.example.doancuoikhoa.exceptions.NotFoundException;
 import com.example.doancuoikhoa.model.*;
 import com.example.doancuoikhoa.response.UserResponse;
 import com.example.doancuoikhoa.utils.PasswordGenerator;
-import com.example.doancuoikhoa.utils.PositionEnum;
 import com.example.doancuoikhoa.utils.RoleEnum;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -36,7 +35,7 @@ public class UserService extends BaseService implements UserDetailsService {
         user.setPassword(PasswordGenerator.encrytePassword(userDTO.getPassword()));
         user.setEnabled(true);
         user.setUserRole(RoleEnum.MEMBER.getRoleName());
-        user.setUserPosition(PositionEnum.STUDENT.getPositionName());
+        user.setUserPosition(RoleEnum.STUDENT.getRoleName());
         userRepository.save(user);
         return ResponseEntity.ok("Success");
     }
@@ -152,6 +151,10 @@ public class UserService extends BaseService implements UserDetailsService {
         user.setEnabled(true);
         user.setUserRole(RoleEnum.MEMBER.getRoleName());
         user.setUserPosition(userDTO.getUserPosition());
+        user.setCode(userDTO.getCode());
+        user.setDepict(userDTO.getDepict());
+        user.setPosition(userDTO.getPosition());
+        user.setSubject(userDTO.getSubject());
         userRepository.save(user);
     }
 
@@ -166,6 +169,10 @@ public class UserService extends BaseService implements UserDetailsService {
             user.setEmail(userDTO.getEmail());
             user.setPhone(userDTO.getPhone());
             user.setUserPosition(userDTO.getUserPosition());
+            user.setCode(userDTO.getCode());
+            user.setDepict(userDTO.getDepict());
+            user.setPosition(userDTO.getPosition());
+            user.setSubject(userDTO.getSubject());
         }
         userRepository.save(user);
     }
@@ -201,6 +208,10 @@ public class UserService extends BaseService implements UserDetailsService {
         userDTO.setPhone(user.getPhone());
         userDTO.setUserPosition(user.getUserPosition());
         userDTO.setUserRole(user.getUserRole());
+        userDTO.setCode(user.getCode());
+        userDTO.setDepict(user.getDepict());
+        userDTO.setPosition(user.getPosition());
+        userDTO.setSubject(user.getSubject());
         return userDTO;
     }
 
@@ -224,7 +235,7 @@ public class UserService extends BaseService implements UserDetailsService {
     }
 
     public List<UserDTO> getListUserTeacher() {
-        List<User> users = userRepository.findAllByPositionTeacher(PositionEnum.TEACHER.getPositionName());
+        List<User> users = userRepository.findAllByPositionTeacher(RoleEnum.TEACHER.getRoleName());
         List<UserDTO> userDTOs = new ArrayList<>();
         users.forEach(user -> {
             userDTOs.add(convertToDTO(user));
@@ -233,7 +244,7 @@ public class UserService extends BaseService implements UserDetailsService {
     }
 
     public List<UserDTO> getListUserStudent() {
-        List<User> users = userRepository.findAllByPositionStruden(PositionEnum.STUDENT.getPositionName());
+        List<User> users = userRepository.findAllByPositionStruden(RoleEnum.STUDENT.getRoleName());
         List<UserDTO> userDTOs = new ArrayList<>();
         users.forEach(user -> {
             userDTOs.add(convertToDTO(user));

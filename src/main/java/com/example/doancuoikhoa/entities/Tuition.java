@@ -20,8 +20,9 @@ public class Tuition implements Serializable {
     private  Long intoMoney;
     @Column(name = "semester")
     private String semester;
-    @Column(name = "user_id")
-    private Integer userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     @Column(name = "status")
     private String status;
 }

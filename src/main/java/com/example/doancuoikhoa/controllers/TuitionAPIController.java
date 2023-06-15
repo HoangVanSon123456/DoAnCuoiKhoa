@@ -32,8 +32,8 @@ public class TuitionAPIController {
     }
 
     @PostMapping(value = "/admin/tuition/add")
-    private TuitionDTO addTuition(@RequestBody TuitionDTO tuitionDTO,@RequestHeader(name = "userId") Integer userId) {
-        tuitionService.addTuition(tuitionDTO,userId);
+    private TuitionDTO addTuition(@RequestBody TuitionDTO tuitionDTO) {
+        tuitionService.addTuition(tuitionDTO);
         return tuitionDTO;
     }
 
