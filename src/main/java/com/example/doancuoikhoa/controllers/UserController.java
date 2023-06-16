@@ -1,10 +1,12 @@
 package com.example.doancuoikhoa.controllers;
 
+import com.example.doancuoikhoa.jwt.JwtTokenProvider;
 import com.example.doancuoikhoa.model.ResponseDTO;
 import com.example.doancuoikhoa.model.UserDTO;
 import com.example.doancuoikhoa.services.UserService;
 import com.example.doancuoikhoa.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StopWatch;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -85,6 +87,14 @@ public class UserController {
     @GetMapping(value = "/admin/user/search/{keyword}")
     public  List<UserDTO> search(@PathVariable(name = "keyword") String keyword) {
         return userService.searchUser(keyword);
+    }
+
+    @PutMapping(value = "/admin/change-password")
+    public void changePassword(@RequestBody UserDTO userDTO , @RequestHeader("token") String token) {
+        Integer userId = userService.getUserToken(token);
+        userDTO.setId(userId);
+        userService.changePassword(userDTO);
+        System.out.println("thanh cong");
     }
 
 }
