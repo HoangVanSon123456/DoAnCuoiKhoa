@@ -1,5 +1,6 @@
 package com.example.doancuoikhoa.services;
 
+import com.example.doancuoikhoa.entities.Tuition;
 import com.example.doancuoikhoa.model.StudyScoreDTO;
 import com.example.doancuoikhoa.model.TuitionDTO;
 
@@ -15,7 +16,7 @@ public interface TuitionService {
 
     TuitionDTO getTuitionById(Integer id);
 
-
+    List<TuitionDTO> search(String keyword);
     List<TuitionDTO> getListTuition();
 
     List<TuitionDTO> getUserTuition(Integer userId);

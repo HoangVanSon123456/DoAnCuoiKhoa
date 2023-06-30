@@ -16,4 +16,6 @@ public class StudyScoreDTO {
     private Integer sectionScoreId;
     private Integer userId;
     private String userName;
+    private Integer userCode;
+
 }

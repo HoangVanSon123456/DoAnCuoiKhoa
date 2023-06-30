@@ -11,5 +11,4 @@ public class SectionClassDTO {
     private String userName;
     private Integer educationProgramId;
     private String educationProgramName;
-
 }

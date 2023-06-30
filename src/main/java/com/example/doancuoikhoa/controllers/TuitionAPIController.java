@@ -3,6 +3,7 @@ package com.example.doancuoikhoa.controllers;
 
 import com.example.doancuoikhoa.model.StudyScoreDTO;
 import com.example.doancuoikhoa.model.TuitionDTO;
+import com.example.doancuoikhoa.model.UserDTO;
 import com.example.doancuoikhoa.services.TuitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,5 +46,10 @@ public class TuitionAPIController {
     @GetMapping("/admin/user_tuition")
     private List<TuitionDTO> getAllByUserId(@RequestHeader(name = "userId") Integer userId) {
         return tuitionService.getUserTuition(userId);
+    }
+
+    @GetMapping(value = "/admin/tution/search/{keyword}")
+    public  List<TuitionDTO> search(@PathVariable(name = "keyword") String keyword) {
+        return tuitionService.search(keyword);
     }
 }

@@ -10,6 +10,7 @@ public class TuitionDTO {
     private String semester;
     private Integer userId;
     private String userName;
+    private Integer userCode;
     private String status;
 
 }

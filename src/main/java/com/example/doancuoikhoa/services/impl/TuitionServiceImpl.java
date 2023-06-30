@@ -64,6 +64,16 @@ public class TuitionServiceImpl implements TuitionService {
         return null;
     }
 
+    @Override
+    public List<TuitionDTO> search(String keyword) {
+        List<Tuition> tuitions = tuitionRepository.search(keyword);
+        List<TuitionDTO> tuitionDTOS = new ArrayList<>();
+        tuitions.forEach(tuition -> {
+            tuitionDTOS.add(converToDTO(tuition));
+        });
+        return tuitionDTOS;
+    }
+
     private TuitionDTO converToDTO(Tuition tuition) {
         TuitionDTO tuitionDTO = new TuitionDTO();
         tuitionDTO.setId(tuition.getId());
@@ -72,6 +82,7 @@ public class TuitionServiceImpl implements TuitionService {
         tuitionDTO.setSemester(tuition.getSemester());
         tuitionDTO.setUserId(tuition.getUser().getId());
         tuitionDTO.setUserName(tuition.getUser().getName());
+        tuitionDTO.setUserCode(tuition.getUser().getCode());
         tuitionDTO.setStatus(tuition.getStatus());
         return tuitionDTO;
     }

@@ -45,6 +45,7 @@ public class StudyScoreServiceImpl implements StudyScoreService {
         User user = new User();
         user.setId(studyScoreDTO.getUserId());
         user.setName(studyScoreDTO.getUserName());
+        user.setCode(studyScoreDTO.getUserCode());
         studyScore.setUser(user);
         studyScore.setSectionScoreId(sectionScoreId);
         studyScoreRepository.save(studyScore);
@@ -111,6 +112,7 @@ public class StudyScoreServiceImpl implements StudyScoreService {
         studyScoreDTO.setUserId(studyScore.getUser().getId());
         studyScoreDTO.setUserName(studyScore.getUser().getName());
         studyScoreDTO.setSectionScoreId(studyScore.getSectionScoreId());
+        studyScoreDTO.setUserCode(studyScore.getUser().getCode());
         return studyScoreDTO;
     }
 

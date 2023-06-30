@@ -23,19 +23,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    @PostMapping("/admin/user/create")
-//    private UserDTO createUser(@RequestBody UserDTO userDTO, @RequestParam("image") MultipartFile multipartFile) throws IOException {
-//
-//        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-//        userDTO.setPhotos(fileName);
-//
-//        String uploadDir = "user-photos/" + createUser().getId();
-//
-//        FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
-//        userService.addUser(userDTO);
-//        return userDTO;
-//    }
-
     @PostMapping("/admin/userTeacher/create")
     private UserDTO createTeacherUser(@RequestBody UserDTO userDTO) throws IOException {
         userService.addUserTeacher(userDTO);
