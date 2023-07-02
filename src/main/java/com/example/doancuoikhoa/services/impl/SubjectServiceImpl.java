@@ -52,6 +52,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     private SubjectDTO converToDTO(Subject subject) {
         SubjectDTO subjectDTO = new SubjectDTO();
+        subjectDTO.setId(subject.getId());
         subjectDTO.setName(subject.getName());
         return subjectDTO;
     }

@@ -53,6 +53,7 @@ public class PositionServiceImpl implements PositionService {
 
     private PositionDTO converToDTO(Position position) {
         PositionDTO positionDTO = new PositionDTO();
+        positionDTO.setId(position.getId());
         positionDTO.setName(position.getName());
         return positionDTO;
     }

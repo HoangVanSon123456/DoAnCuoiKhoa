@@ -29,13 +29,13 @@ public class SubjectController {
     }
 
     @PostMapping(value = "/admin/subject/add")
-    private SubjectDTO addSubject(@RequestBody SubjectDTO SubjectDTO) {
-        subjectService.addSubject(SubjectDTO);
-        return SubjectDTO;
+    private SubjectDTO addSubject(@RequestBody SubjectDTO subjectDTO) {
+        subjectService.addSubject(subjectDTO);
+        return subjectDTO;
     }
 
     @PutMapping(value = "/admin/subject/update/{id}")
-    public void updateUser(@PathVariable(name = "id") Long id,@RequestBody SubjectDTO SubjectDTO) throws Exception {
-        subjectService.updateSubject(SubjectDTO);
+    public void updateUser(@PathVariable(name = "id") Integer id,@RequestBody SubjectDTO subjectDTO) throws Exception {
+        subjectService.updateSubject(subjectDTO);
     }
 }
