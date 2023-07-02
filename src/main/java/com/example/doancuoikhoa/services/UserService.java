@@ -238,7 +238,6 @@ public class UserService extends BaseService implements UserDetailsService {
         userDTO.setAge(user.getAge());
         userDTO.setGender(user.getGender());
         userDTO.setEmail(user.getEmail());
-//        userDTO.setPassword(user.getPassword());
         userDTO.setPhone(user.getPhone());
         userDTO.setUserPosition(user.getUserPosition());
         userDTO.setUserRole(user.getUserRole());
