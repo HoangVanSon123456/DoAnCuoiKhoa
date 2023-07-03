@@ -12,7 +12,7 @@ public class RestSchedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "name")
-    private Integer name;
+    private String name;
     @Column(name = "testDay")
     private String testDay;
     @Column(name = "poetry")

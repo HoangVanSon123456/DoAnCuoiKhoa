@@ -27,15 +27,16 @@ public class RestScheduleServiceImpl implements RestScheduleService {
         restSchedule.setExamTime(restScheduleDTO.getExamTime());
         restSchedule.setTestDay(restScheduleDTO.getTestDay());
         restSchedule.setIdentificatioNumber(restScheduleDTO.getIdentificatioNumber());
+        restSchedule.setExaminationRoom(restScheduleDTO.getExaminationRoom());
         User user = new User();
         user.setId(restScheduleDTO.getUserId());
-        user.setName(restScheduleDTO.getUserName());
-        user.setCode(restScheduleDTO.getUserCode());
+//        user.setName(restScheduleDTO.getUserName());
+//        user.setCode(restScheduleDTO.getUserCode());
         restSchedule.setUser(user);
         Course course = new Course();
         course.setId(restScheduleDTO.getCourseId());
-        course.setName(restScheduleDTO.getCourseName());
-        course.setCreditName(restScheduleDTO.getCreditName());
+//        course.setName(restScheduleDTO.getCourseName());
+//        course.setCreditName(restScheduleDTO.getCreditName());
         restSchedule.setCourse(course);
 
         restScheduleRepository.save(restSchedule);
@@ -51,16 +52,17 @@ public class RestScheduleServiceImpl implements RestScheduleService {
             restSchedule.setExamTime(restScheduleDTO.getExamTime());
             restSchedule.setTestDay(restScheduleDTO.getTestDay());
             restSchedule.setIdentificatioNumber(restScheduleDTO.getIdentificatioNumber());
-            User user = new User();
-            user.setId(restScheduleDTO.getUserId());
-            user.setName(restScheduleDTO.getUserName());
-            user.setCode(restScheduleDTO.getUserCode());
-            restSchedule.setUser(user);
-            Course course = new Course();
-            course.setId(restScheduleDTO.getCourseId());
-            course.setName(restScheduleDTO.getCourseName());
-            course.setCreditName(restScheduleDTO.getCreditName());
-            restSchedule.setCourse(course);
+            restSchedule.setExaminationRoom(restScheduleDTO.getExaminationRoom());
+//            User user = new User();
+//            user.setId(restScheduleDTO.getUserId());
+//            user.setName(restScheduleDTO.getUserName());
+//            user.setCode(restScheduleDTO.getUserCode());
+//            restSchedule.setUser(user);
+//            Course course = new Course();
+//            course.setId(restScheduleDTO.getCourseId());
+//            course.setName(restScheduleDTO.getCourseName());
+//            course.setCreditName(restScheduleDTO.getCreditName());
+//            restSchedule.setCourse(course);
 
             restScheduleRepository.save(restSchedule);
         }
@@ -92,6 +94,7 @@ public class RestScheduleServiceImpl implements RestScheduleService {
         restScheduleDTO.setExamTime(restSchedule.getExamTime());
         restScheduleDTO.setTestDay(restSchedule.getTestDay());
         restScheduleDTO.setIdentificatioNumber(restSchedule.getIdentificatioNumber());
+        restScheduleDTO.setExaminationRoom(restSchedule.getExaminationRoom());
         restScheduleDTO.setCourseId(restSchedule.getCourse().getId());
         restScheduleDTO.setCourseName(restSchedule.getCourse().getName());
         restScheduleDTO.setCreditName(restSchedule.getCourse().getCreditName());

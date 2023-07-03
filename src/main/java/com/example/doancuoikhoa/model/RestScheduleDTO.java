@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class RestScheduleDTO {
     private Integer id;
-    private Integer name;
+    private String name;
     private Integer courseId;
     private String courseName;
     private Integer creditName;
