@@ -113,4 +113,14 @@ public class RestScheduleServiceImpl implements RestScheduleService {
         });
         return restScheduleDTOS;
     }
+
+    @Override
+    public List<RestScheduleDTO> getUserRestSchedule(Integer userId) {
+        List<RestSchedule> restSchedules = restScheduleRepository.findAllByUserId(userId);
+        List<RestScheduleDTO> restScheduleDTOS = new ArrayList<>();
+        restSchedules.forEach(restSchedule -> {
+            restScheduleDTOS.add(convertToDTO(restSchedule));
+        });
+        return restScheduleDTOS;
+    }
 }

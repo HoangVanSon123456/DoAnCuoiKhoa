@@ -57,13 +57,18 @@ public class User {
 
     @Column(name = "phone")
     private String phone;
+
     @Column(name = "code")
     private Integer code;
-    @Column(name = "subject")
-    private String subject;
+
     @Column(name = "depict")
     private String depict;
-    @Column(name = "position")
-    private String position;
 
+    @ManyToOne
+    @JoinColumn(name = "position")
+    private Position position;
+
+    @ManyToOne
+    @JoinColumn(name = "subject")
+    private Subject subject;
 }

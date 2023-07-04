@@ -18,6 +18,5 @@ public interface TuitionService {
 
     List<TuitionDTO> search(String keyword);
     List<TuitionDTO> getListTuition();
-
     List<TuitionDTO> getUserTuition(Integer userId);
 }

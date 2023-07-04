@@ -20,7 +20,9 @@ public class UserDTO {
     private String refreshToken;
     private String accessToken;
     private Integer code;
-    private String subject;
+    private Integer subjectId;
+    private String subjectName;
     private String depict;
-    private String position;
+    private Integer positionId;
+    private String positionName;
 }

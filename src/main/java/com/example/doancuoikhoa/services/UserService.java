@@ -1,6 +1,8 @@
 package com.example.doancuoikhoa.services;
 
 
+import com.example.doancuoikhoa.entities.Position;
+import com.example.doancuoikhoa.entities.Subject;
 import com.example.doancuoikhoa.entities.User;
 import com.example.doancuoikhoa.exceptions.NotFoundException;
 import com.example.doancuoikhoa.model.*;
@@ -140,6 +142,7 @@ public class UserService extends BaseService implements UserDetailsService {
 
     public void addUserTeacher(UserDTO userDTO) {
         User user = new User();
+        user.setCode(userDTO.getCode());
         user.setName(userDTO.getName());
         user.setUseName(userDTO.getUseName());
         user.setAddress(userDTO.getAddress());
@@ -154,8 +157,12 @@ public class UserService extends BaseService implements UserDetailsService {
         user.setCode(userDTO.getCode());
         user.setDepict(userDTO.getDepict());
         user.setUserPosition(RoleEnum.TEACHER.getRoleName());
-        user.setPosition(userDTO.getPosition());
-        user.setSubject(userDTO.getSubject());
+        Position position = new Position();
+        position.setId(userDTO.getPositionId());
+        user.setPosition(position);
+        Subject subject = new Subject();
+        subject.setId(userDTO.getSubjectId());
+        user.setSubject(subject);
         userRepository.save(user);
     }
 
@@ -189,8 +196,14 @@ public class UserService extends BaseService implements UserDetailsService {
             user.setUserPosition(userDTO.getUserPosition());
             user.setCode(userDTO.getCode());
             user.setDepict(userDTO.getDepict());
-            user.setPosition(userDTO.getPosition());
-            user.setSubject(userDTO.getSubject());
+            Position position = new Position();
+            position.setId(userDTO.getPositionId());
+            position.setName(userDTO.getPositionName());
+            user.setPosition(position);
+            Subject subject = new Subject();
+            subject.setId(userDTO.getSubjectId());
+            subject.setName(userDTO.getSubjectName());
+            user.setSubject(subject);
         }
         userRepository.save(user);
     }
@@ -243,8 +256,10 @@ public class UserService extends BaseService implements UserDetailsService {
         userDTO.setUserRole(user.getUserRole());
         userDTO.setCode(user.getCode());
         userDTO.setDepict(user.getDepict());
-        userDTO.setPosition(user.getPosition());
-        userDTO.setSubject(user.getSubject());
+        userDTO.setPositionId(user.getPosition().getId());
+        userDTO.setPositionName(user.getPosition().getName());
+        userDTO.setSubjectId(user.getSubject().getId());
+        userDTO.setSubjectName(user.getSubject().getName());
         return userDTO;
     }
 

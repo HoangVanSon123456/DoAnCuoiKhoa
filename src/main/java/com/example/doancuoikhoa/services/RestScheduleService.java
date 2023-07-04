@@ -1,6 +1,7 @@
 package com.example.doancuoikhoa.services;
 
 import com.example.doancuoikhoa.model.RestScheduleDTO;
+import com.example.doancuoikhoa.model.TuitionDTO;
 
 import java.util.List;
 
@@ -14,4 +15,7 @@ public interface RestScheduleService {
     RestScheduleDTO getRestScheduleById(Integer id);
 
     List<RestScheduleDTO> getAll();
+
+    List<RestScheduleDTO> getUserRestSchedule(Integer userId);
+
 }

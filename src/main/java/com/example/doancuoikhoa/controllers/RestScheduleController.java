@@ -1,6 +1,7 @@
 package com.example.doancuoikhoa.controllers;
 
 import com.example.doancuoikhoa.model.RestScheduleDTO;
+import com.example.doancuoikhoa.model.TuitionDTO;
 import com.example.doancuoikhoa.services.RestScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,12 @@ public class RestScheduleController {
     }
 
     @PutMapping(value = "/admin/restSchedule/update/{id}")
-    public void updaterestSchedule(@PathVariable(name = "id") Long id,@RequestBody RestScheduleDTO restScheduleDTO) throws Exception {
+    public void updaterestSchedule(@PathVariable(name = "id") Integer id,@RequestBody RestScheduleDTO restScheduleDTO) throws Exception {
         restScheduleService.updateRestSchedule(restScheduleDTO);
+    }
+
+    @GetMapping("/admin/user_restSchedule/{userId}")
+    private List<RestScheduleDTO> getAllByUserId(@PathVariable(name = "userId") Integer userId) {
+        return restScheduleService.getUserRestSchedule(userId);
     }
 }
