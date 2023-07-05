@@ -128,13 +128,12 @@ public class StudyScoreServiceImpl implements StudyScoreService {
 
     @Override
     public List<StudyScoreDTO> search(String keyword) {
-//        List<StudyScore> studyScores = studyScoreRepository.search(keyword);
-//        List<StudyScoreDTO> studyScoreDTOS = new ArrayList<>();
-//        studyScores.forEach(studyScore -> {
-//            studyScoreDTOS.add(converToDTO(studyScore));
-//        });
-//        return studyScoreDTOS;
-        return null;
+        List<StudyScore> studyScores = studyScoreRepository.search(keyword);
+        List<StudyScoreDTO> studyScoreDTOS = new ArrayList<>();
+        studyScores.forEach(studyScore -> {
+            studyScoreDTOS.add(converToDTO(studyScore));
+        });
+        return studyScoreDTOS;
     }
 
 

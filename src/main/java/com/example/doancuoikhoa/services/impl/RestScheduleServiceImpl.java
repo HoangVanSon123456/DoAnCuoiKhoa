@@ -123,4 +123,14 @@ public class RestScheduleServiceImpl implements RestScheduleService {
         });
         return restScheduleDTOS;
     }
+
+    @Override
+    public List<RestScheduleDTO> search(String keyword) {
+        List<RestSchedule> restSchedules = restScheduleRepository.search(keyword);
+        List<RestScheduleDTO> restScheduleDTOS = new ArrayList<>();
+        restSchedules.forEach(restSchedule -> {
+            restScheduleDTOS.add(convertToDTO(restSchedule));
+        });
+        return restScheduleDTOS;
+    }
 }

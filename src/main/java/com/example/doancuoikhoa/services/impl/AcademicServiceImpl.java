@@ -3,6 +3,7 @@ package com.example.doancuoikhoa.services.impl;
 import com.example.doancuoikhoa.entities.Academic;
 import com.example.doancuoikhoa.entities.User;
 import com.example.doancuoikhoa.model.AcademicDTO;
+import com.example.doancuoikhoa.model.TuitionDTO;
 import com.example.doancuoikhoa.repositories.AcademicRepository;
 import com.example.doancuoikhoa.services.AcademicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,4 +86,15 @@ public class AcademicServiceImpl implements AcademicService {
         });
         return academicDTOS;
     }
+
+    @Override
+    public List<AcademicDTO> search(String keyword) {
+        List<Academic> academics = academicRepository.search(keyword);
+        List<AcademicDTO> academicDTOS = new ArrayList<>();
+        academics.forEach(academic -> {
+            academicDTOS.add(convertToDTO(academic));
+        });
+        return academicDTOS;
+    }
+
 }

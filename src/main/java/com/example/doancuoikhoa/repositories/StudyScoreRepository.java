@@ -16,7 +16,7 @@ public interface StudyScoreRepository extends JpaRepository<StudyScore , Integer
 
     List<StudyScore> findAllBySectionScoreId(Integer sectionScoreId);
 
-//        @Query(value = "SELECT n FROM Course n JOIN n.id WHERE CONCAT(n.name, '') LIKE %?1%")
-//    List<StudyScore> search(String keyword);
+    @Query(value = "SELECT s FROM StudyScore s inner join  User u on u.id = s.user.id WHERE CONCAT(u.code,'') LIKE %?1%")
+    List<StudyScore> search(String keyword);
 
 }

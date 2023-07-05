@@ -44,4 +44,9 @@ public class RestScheduleController {
     private List<RestScheduleDTO> getAllByUserId(@PathVariable(name = "userId") Integer userId) {
         return restScheduleService.getUserRestSchedule(userId);
     }
+
+    @GetMapping(value = "/admin/restSchedule/search/{keyword}")
+    public  List<RestScheduleDTO> search(@PathVariable(name = "keyword") String keyword) {
+        return restScheduleService.search(keyword);
+    }
 }

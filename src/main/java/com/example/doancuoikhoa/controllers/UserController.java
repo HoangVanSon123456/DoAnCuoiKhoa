@@ -39,6 +39,11 @@ public class UserController {
         return userService.getListUser();
     }
 
+    @GetMapping("/admin/teacher_class")
+    private List<UserDTO> getAllListTeacher() {
+        return userService.getListTeacher();
+    }
+
     @GetMapping("/admin/teacher")
     private ResponseDTO<UserDTO> getAllTeacher() {
         ResponseDTO<UserDTO> responseDTO = new ResponseDTO<UserDTO>();
@@ -70,6 +75,7 @@ public class UserController {
     public UserDTO getUser(@PathVariable(name = "id") Integer id) {
         return userService.getUserById(id);
     }
+
 
     @GetMapping(value = "/admin/user/search/{keyword}")
     public  List<UserDTO> search(@PathVariable(name = "keyword") String keyword) {

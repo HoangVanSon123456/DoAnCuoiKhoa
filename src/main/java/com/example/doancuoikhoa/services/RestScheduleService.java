@@ -18,4 +18,6 @@ public interface RestScheduleService {
 
     List<RestScheduleDTO> getUserRestSchedule(Integer userId);
 
+    List<RestScheduleDTO> search(String keyword);
+
 }

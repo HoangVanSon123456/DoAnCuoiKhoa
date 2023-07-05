@@ -1,6 +1,7 @@
 package com.example.doancuoikhoa.controllers;
 
 import com.example.doancuoikhoa.model.AcademicDTO;
+import com.example.doancuoikhoa.model.RestScheduleDTO;
 import com.example.doancuoikhoa.model.SectionClassDTO;
 import com.example.doancuoikhoa.services.AcademicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,10 @@ public class AcademicController {
     @PutMapping(value = "/admin/academic/update/{id}")
     public void updateAcademic(@PathVariable(name = "id") Long id,@RequestBody AcademicDTO academicDTO) throws Exception {
         academicService.updateAcademic(academicDTO);
+    }
+
+    @GetMapping(value = "/admin/academic/search/{keyword}")
+    public  List<AcademicDTO> search(@PathVariable(name = "keyword") String keyword) {
+        return academicService.search(keyword);
     }
 }

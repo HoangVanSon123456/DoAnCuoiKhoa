@@ -180,6 +180,12 @@ public class UserService extends BaseService implements UserDetailsService {
         user.setEnabled(true);
         user.setUserRole(RoleEnum.MEMBER.getRoleName());
         user.setUserPosition(RoleEnum.STUDENT.getRoleName());
+        Position position = new Position();
+        position.setId(userDTO.getPositionId());
+        user.setPosition(position);
+        Subject subject = new Subject();
+        subject.setId(userDTO.getSubjectId());
+        user.setSubject(subject);
         userRepository.save(user);
     }
 
@@ -242,6 +248,32 @@ public class UserService extends BaseService implements UserDetailsService {
         }
         return null;
     }
+
+    public UserDTO getTeacherById(Integer id) {
+        User user = userRepository.findUserById(id);
+        if(user != null) {
+            return convertTeacherToDTO(user);
+        }
+        return null;
+    }
+
+    private UserDTO convertTeacherToDTO(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setName(user.getName());
+        userDTO.setUseName(user.getUseName());
+        userDTO.setAddress(user.getAddress());
+        userDTO.setAge(user.getAge());
+        userDTO.setGender(user.getGender());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setPhone(user.getPhone());
+        userDTO.setUserPosition(user.getUserPosition());
+        userDTO.setUserRole(user.getUserRole());
+        userDTO.setCode(user.getCode());
+        userDTO.setDepict(user.getDepict());
+        return userDTO;
+    }
+
     private UserDTO convertToDTO(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
@@ -278,6 +310,15 @@ public class UserService extends BaseService implements UserDetailsService {
         List<UserDTO> userDTOs = new ArrayList<>();
         users.forEach(user -> {
             userDTOs.add(convertToDTO(user));
+        });
+        return userDTOs;
+    }
+
+    public List<UserDTO> getListTeacher() {
+        List<User> users = userRepository.findAllByPositionTeacher(RoleEnum.TEACHER.getRoleName());
+        List<UserDTO> userDTOs = new ArrayList<>();
+        users.forEach(user -> {
+            userDTOs.add(convertTeacherToDTO(user));
         });
         return userDTOs;
     }
